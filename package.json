@@ -1,0 +1,53 @@
+{
+  "name": "projeto-colorindo-a-vida",
+  "version": "3.24.1",
+  "description": "projeto colorindo a vida utfpr 2023",
+  "homepage": "https://github.com/emanuelguerke/projeto-colorindo-a-vida#readme",
+  "main": "index.js",
+  "scripts": {
+   
+   "start": "node server.js",
+    "build": "webpack --config webpack/webpack.prod.js",
+    "bundle": "npm run build",
+    "serve": "serve dist"
+  },
+  "keywords": [
+    "UTFPR",
+    "Phaser3",
+    "html5",
+    "programa",
+    "jogo",
+    "educativo"
+  ],
+  "author": {
+    "name": "Davi, Eduardo, Emanuel, Luis, João",
+    "url": "https://github.com/emanuelguerke/projeto-colorindo-a-vida"
+  },
+  "engines": {
+    "node": ">=8.0.0"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/core": "^7.10.5",
+    "@babel/plugin-proposal-class-properties": "^7.10.4",
+    "@babel/plugin-syntax-dynamic-import": "^7.8.3",
+    "@babel/preset-env": "^7.10.4",
+    "babel-loader": "^8.1.0",
+    "clean-webpack-plugin": "^3.0.0",
+    "copy-webpack-plugin": "^5.1.1",
+    "html-webpack-plugin": "^3.2.0",
+    "serve": "^11.3.2",
+    "typescript": "^3.9.6",
+    "webpack": "^4.43.0",
+    "webpack-cli": "^3.3.12",
+    "webpack-dev-server": "^3.11.0",
+    "webpack-merge": "^4.2.1",
+    "webpack-obfuscator": "^0.27.4",
+    "workbox-webpack-plugin": "^5.1.3"
+  },
+  "dependencies": {
+    "@babel/polyfill": "^7.10.4",
+    "express": "^4.18.2",
+    "phaser": "^3.24.1"
+  }
+}
