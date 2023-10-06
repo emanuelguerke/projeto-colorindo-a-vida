@@ -121,6 +121,19 @@ export class PlayGame extends Phaser.Scene{
         }
         this.vidas--;
     }
+    atribuirPontosLevel(){
+        if(this.vidas == 3){
+            this.pontos += 20;
+        }
+
+        if(this.txtTempo.text >100){
+            this.pontos += 100;
+        }else if(this.txtTempo.text>60){
+            this.pontos+=80;
+        }else if(this.txtTempo.text>10){
+            this.pontos+=50;
+        }
+    }
 
     destruirMensagem(){
         if(typeof this.txtMensagem != 'undefined'){
@@ -136,7 +149,7 @@ export class PlayGame extends Phaser.Scene{
         this.vermelho.on("pointerdown", ()=> {
             this.quadradoMetadeVermelho.setTintFill(0xff0000);
             this.destruirMensagem();
-            
+            this.atribuirPontosLevel();
             this.txtMensagem = this.add.text(250, 140, 'ACERTOU MIZERAVI!', {fontSize: '30px', fill:'red'});
             
          //   this.scene.start('PlayGame');
@@ -193,7 +206,7 @@ export class PlayGame extends Phaser.Scene{
         this.azul.on("pointerdown", ()=> {
             this.quadradoBranco.setTintFill(0x0f00ff);
             this.destruirMensagem();
-           
+            this.atribuirPontosLevel();
             this.txtMensagem = this.add.text(250, 140, 'ACERTOU MIZERAVI!', {fontSize: '30px', fill:'red'});
             
             
@@ -222,7 +235,7 @@ export class PlayGame extends Phaser.Scene{
          //   this.quadradoMetadeVermelho.setTintFill(0xff0000);
          this.maca = this.add.image(400,300,"maca");
             this.destruirMensagem();
-            
+            this.atribuirPontosLevel();
             this.txtMensagem = this.add.text(250, 140, 'ACERTOU MIZERAVI!', {fontSize: '30px', fill:'red'});
             
          //   this.scene.start('PlayGame');
