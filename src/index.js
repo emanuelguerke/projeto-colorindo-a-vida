@@ -3,6 +3,7 @@ import {Menu} from './menu.js';
 import {PlayGame} from './playGame.js';
 
 import {Transition} from './transition.js'
+import {PhaseComplete} from './phaseComplete.js'
 import {Teacher} from './teacher.js'
 import {Criteria} from './criteria.js'
 import {Ranking} from './ranking.js'
@@ -61,6 +62,11 @@ export class StartGame extends Phaser.Scene{
         this.load.image('macaMetadeBranca','src/assets/macaMetadeBranca.png');
         this.load.image('macaMetadeAzul','src/assets/macaMetadeAzul.png');
         this.load.image('macaMetadeAmarela','src/assets/macaMetadeAmarela.png');
+        //fase 1 nivel 4
+        this.load.image('banana','src/assets/banana.png');
+        this.load.image('bananaBranco','src/assets/bananaBranco.png');
+        this.load.image('bananaVermelho','src/assets/bananaVermelho.png');
+        this.load.image('bananaAzul','src/assets/bananaAzul.png');
         //EndGame
     //    this.load.image("btnVoltar", "src/assets/voltar.png");
         //
@@ -148,7 +154,7 @@ window.onload = function()
         autoCenter:Phaser.Scale.CENTER_BOTH,
            
         backgroundColor: '#d3d3d3',
-        scene:[StartGame, Menu, PlayGame, Transition,Teacher, Criteria, Ranking, Credits, EndGame]
+        scene:[StartGame, Menu, PlayGame, Transition, PhaseComplete, Teacher, Criteria, Ranking, Credits, EndGame]
     };
     this.game = new Phaser.Game(gameConfig);
 

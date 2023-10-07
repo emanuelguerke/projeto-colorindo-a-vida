@@ -33,6 +33,8 @@ export class PlayGame extends Phaser.Scene{
 
         this.rec;
         this.maca;
+        this.bananaFixa;
+        this.banana;
         
 
     }
@@ -274,7 +276,43 @@ export class PlayGame extends Phaser.Scene{
         });
     }
     nivel4(){
-        this.txtMensagem = this.add.text(250, 140, '&& EM CONSTRUÇÃO &&', {fontSize: '30px', fill:'yellow'});
+        this.txtEnunciado = this.add.text(200, 40, 'PINTE A BANANA CONFORME A IMAGEM', {fontSize: '20px', fill:'yellow'});
+        this.bananaFixa = this.add.image(300,300,"banana");
+        this.banana = this.add.image(600,300,"bananaBranco");
+
+        this.vermelho.on("pointerdown", ()=> {
+            this.banana = this.add.image(600,300,"bananaVermelho");
+            this.destruirMensagem();
+            this.destruirVidas();
+            this.txtMensagem = this.add.text(250, 140, 'ERROU ESSE É O VERMELHO', {fontSize: '30px', fill:'red'});
+            this.pontos = this.pontos-10;
+            this.txtPontos.text = this.pontos;
+            this.vermelho.destroy();
+          
+
+
+        });
+        this.azul.on("pointerdown", ()=> {
+    
+            this.banana = this.add.image(600,300,"bananaAzul");
+            this.destruirMensagem();
+            this.destruirVidas();
+            this.txtMensagem = this.add.text(250, 140, 'ERROU ESSE É O AZUL', {fontSize: '30px', fill:'blue'});
+            this.pontos = this.pontos-10;
+            this.txtPontos.text = this.pontos;
+            this.azul.destroy();
+    
+            
+        });
+        this.amarelo.on("pointerdown", ()=> {
+            this.banana = this.add.image(600,300,"banana");
+            this.destruirMensagem();
+            this.atribuirPontosLevel();
+            this.txtMensagem = this.add.text(250, 140, 'ACERTOU MIZERAVI!', {fontSize: '30px', fill:'yellow'});
+            this.scene.start('PhaseComplete');
+            
+
+        });
     }
 
 }
