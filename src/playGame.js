@@ -10,7 +10,7 @@ export class PlayGame extends Phaser.Scene{
 
         this.musica;
         this.som;
-
+        this.faseAtual;
         this.nivel=1;
         this.txtNivel;
         this.tempo=120;
@@ -35,6 +35,8 @@ export class PlayGame extends Phaser.Scene{
         this.maca;
         this.bananaFixa;
         this.banana;
+
+        this.fase1Completa = false;
         
 
     }
@@ -77,6 +79,10 @@ export class PlayGame extends Phaser.Scene{
         
         this.contador = this.time.addEvent({delay:1000, repeat: this.tempo});
 
+     //fase 1   
+    if(this.faseAtual == 1){
+
+        
        //nivel 1
        if(this.nivel==1){
         this.nivel1();
@@ -92,7 +98,7 @@ export class PlayGame extends Phaser.Scene{
        if(this.nivel==4){
         this.nivel4();
        }
-
+    }
        
 
         //não sei se o active é realmente necessario...

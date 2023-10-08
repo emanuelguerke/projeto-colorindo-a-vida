@@ -25,17 +25,32 @@ export class Menu extends Phaser.Scene{
         this.btnVoltar = this.add.image(40,40,"btnVoltar");
 
         this.btnFase1.setInteractive({ cursor: 'pointer' });
-        this.btnFase2.setInteractive({ cursor: 'pointer' });
+       
         this.btnCreditos.setInteractive({ cursor: 'pointer' });
         this.btnVoltar.setInteractive({ cursor: 'pointer' });
 
-        this.btnFase1.on("pointerdown", ()=> this.scene.start('PlayGame'));
+        this.btnFase1.on("pointerdown", ()=> {
+            game.scene.keys["PlayGame"].faseAtual =1;
+            game.scene.keys["PlayGame"].nivel = 1;
+            game.scene.keys["PlayGame"].pontos = 0;
+            this.scene.start('PlayGame');
+        });
         this.btnFase1.on('pointerover',this.passouPorCima);
         this.btnFase1.on('pointerout', this.saiuDeCima);
 
-        this.btnFase2.on("pointerdown", ()=> this.scene.start('PlayGame'));
-        this.btnFase2.on('pointerover',this.passouPorCima);
-        this.btnFase2.on('pointerout', this.saiuDeCima);
+        if(game.scene.keys["StartGame"].fase1Completa)
+        {
+            this.btnFase2.setInteractive({ cursor: 'pointer' });
+            this.btnFase2.on("pointerdown", ()=> {
+            game.scene.keys["PlayGame"].faseAtual =2;
+            game.scene.keys["PlayGame"].nivel = 1;
+            game.scene.keys["PlayGame"].pontos = 0;
+            this.scene.start('PlayGame');
+            });
+            this.btnFase2.on('pointerover',this.passouPorCima);
+            this.btnFase2.on('pointerout', this.saiuDeCima);
+        }
+        
 
         this.btnCreditos.on("pointerdown", ()=> this.scene.start('Credits'));
         this.btnCreditos.on('pointerover',this.passouPorCima);
