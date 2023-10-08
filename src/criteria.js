@@ -13,6 +13,6 @@ export class Criteria extends Phaser.Scene{
 
         this.btnVoltar = this.add.image(40,40,"btnVoltar");
         this.btnVoltar.setInteractive({ cursor: 'pointer' });
-        this.btnVoltar.on("pointerdown", ()=> this.scene.start('StartGame'));
+        this.btnVoltar.on("pointerdown", ()=> this.scene.start('Teacher'));
     }
 }

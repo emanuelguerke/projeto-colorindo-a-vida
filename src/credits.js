@@ -13,7 +13,7 @@ export class Credits extends Phaser.Scene{
 
         this.btnVoltar = this.add.image(30,60,"btnVoltar");
         this.btnVoltar.setInteractive({ cursor: 'pointer' });
-        this.btnVoltar.on("pointerdown", ()=> this.scene.start('StartGame'));
+        this.btnVoltar.on("pointerdown", ()=> this.scene.start('Teacher'));
 
         this.add.text(50, 100,"PROJETO COLORINDO A VIDA",  {fontSize: '50px', fontStyle: 'bold',fill:'white'});
         this.add.text(50, 140,"ENGENHARIA DE SOFTWARE",  {fontSize: '50px', fontStyle: 'bold',fill:'white'});
