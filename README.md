@@ -15,9 +15,6 @@
 # Install dependencies
 $ npm install
 
-# Start
-$ npm start
-
 # Build the production ready code to the /dist folder
 $ npm run build
 
