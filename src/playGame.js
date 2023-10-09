@@ -198,6 +198,11 @@ export class PlayGame extends Phaser.Scene{
         }
 
     }
+    desativarBaldes(){
+        this.azulBaldeAtivo = false;
+        this.vermelhoBaldeAtivo = false;
+        this.amareloBaldeAtivo = false;
+    }
 
     nivel1(){
         this.txtEnunciado = this.add.text(200, 40, 'PINTE DE VERMELHO A METADE FALTANTE DO QUADRADO', {fontSize: '20px', fill:'red'});
@@ -359,16 +364,12 @@ export class PlayGame extends Phaser.Scene{
         this.vermelho.on("pointerdown", ()=> {
             if(this.azulBaldeAtivo && !this.amareloBaldeAtivo){
                 this.roxoBaldeAtivo = !this.roxoBaldeAtivo;
-                this.azulBaldeAtivo = false;
-                this.vermelhoBaldeAtivo = false;
-                this.amareloBaldeAtivo = false;
+                this.desativarBaldes();
                 
                 this.lata = this.add.image(600, 500, 'lataRoxo').setOrigin(0,0);
             }else if(this.amareloBaldeAtivo && !this.azulBaldeAtivo){
                 this.laranjaBaldeAtivo = !this.laranjaBaldeAtivo;
-                this.azulBaldeAtivo = false;
-                this.vermelhoBaldeAtivo = false;
-                this.amareloBaldeAtivo = false;
+                this.desativarBaldes();
                 
                 this.lata = this.add.image(600, 500, 'lataLaranja').setOrigin(0,0);
             }
@@ -391,15 +392,11 @@ export class PlayGame extends Phaser.Scene{
         this.azul.on("pointerdown", ()=> {
            if(this.vermelhoBaldeAtivo && !this.amareloBaldeAtivo){
             this.roxoBaldeAtivo = !this.roxoBaldeAtivo;
-            this.azulBaldeAtivo = false;
-            this.vermelhoBaldeAtivo = false;
-            this.amareloBaldeAtivo = false;
+            this.desativarBaldes();
             this.lata = this.add.image(600, 500, 'lataRoxo').setOrigin(0,0);
            } else if(this.amareloBaldeAtivo && !this.vermelhoBaldeAtivo){
             this.verdeBaldeAtivo = !this.verdeBaldeAtivo;
-            this.azulBaldeAtivo = false;
-            this.vermelhoBaldeAtivo = false;
-            this.amareloBaldeAtivo = false;
+            this.desativarBaldes();
             this.lata = this.add.image(600, 500, 'lataVerde').setOrigin(0,0);
         }
            else{
@@ -420,15 +417,11 @@ export class PlayGame extends Phaser.Scene{
         this.amarelo.on("pointerdown", ()=> {
             if(this.azulBaldeAtivo && !this.vermelhoBaldeAtivo){
                 this.verdeBaldeAtivo = !this.verdeBaldeAtivo;
-                this.azulBaldeAtivo = false;
-                this.vermelhoBaldeAtivo = false;
-               this.amareloBaldeAtivo = false;
+                this.desativarBaldes();
                 this.lata = this.add.image(600, 500, 'lataVerde').setOrigin(0,0);
             }else if(this.vermelhoBaldeAtivo && !this.azulBaldeAtivo){
                 this.laranjaBaldeAtivo = !this.laranjaBaldeAtivo;
-                this.azulBaldeAtivo = false;
-                this.vermelhoBaldeAtivo = false;
-                this.amareloBaldeAtivo = false;
+                this.desativarBaldes();
                 
                 this.lata = this.add.image(600, 500, 'lataLaranja').setOrigin(0,0);
             }
