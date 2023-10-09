@@ -42,6 +42,14 @@ export class PlayGame extends Phaser.Scene{
         this.questionIcon;
         this.ajuda;
 
+        this.vermelhoBaldeAtivo = false; 
+        this.azulBaldeAtivo = false; 
+        this.amareloBaldeAtivo = false; 
+
+        this.roxoBaldeAtivo = false;
+        this.laranjaBaldeAtivo = false;
+        this.verdeBaldeAtivo = false;
+
     }
 
     preload(){
@@ -346,19 +354,97 @@ export class PlayGame extends Phaser.Scene{
     }
     nivel1Fase2(){
         this.txtEnunciado = this.add.text(200, 40, 'PINTE DE VERDE A METADE FALTANTE DO QUADRADO', {fontSize: '20px', fill:'red'});
-        this.quadradoMetadeVermelho = this.add.image(400,300,"quadradoMetadeVerde");
+        this.quadradoMetadeVerde = this.add.image(400,300,"quadradoMetadeVerde");
+
         this.vermelho.on("pointerdown", ()=> {
-            this.lata = this.add.image(600, 500, 'lataVermelho').setOrigin(0,0);
+            if(this.azulBaldeAtivo && !this.amareloBaldeAtivo){
+                this.roxoBaldeAtivo = !this.roxoBaldeAtivo;
+                this.azulBaldeAtivo = false;
+                this.vermelhoBaldeAtivo = false;
+                this.amareloBaldeAtivo = false;
+                
+                this.lata = this.add.image(600, 500, 'lataRoxo').setOrigin(0,0);
+            }else if(this.amareloBaldeAtivo && !this.azulBaldeAtivo){
+                this.laranjaBaldeAtivo = !this.laranjaBaldeAtivo;
+                this.azulBaldeAtivo = false;
+                this.vermelhoBaldeAtivo = false;
+                this.amareloBaldeAtivo = false;
+                
+                this.lata = this.add.image(600, 500, 'lataLaranja').setOrigin(0,0);
+            }
+            else{
+
+           
+
+            if(!this.vermelhoBaldeAtivo){
+                this.lata = this.add.image(600, 500, 'lataVermelho').setOrigin(0,0);
+                this.vermelhoBaldeAtivo = !this.vermelhoBaldeAtivo;
+                console.log(this.vermelhoBaldeAtivo);
+            }else{
+                this.lata = this.add.image(600, 500, 'lata').setOrigin(0,0);
+                this.vermelhoBaldeAtivo = !this.vermelhoBaldeAtivo;
+                console.log(this.vermelhoBaldeAtivo);
+            }
+        }
 
         });
         this.azul.on("pointerdown", ()=> {
+           if(this.vermelhoBaldeAtivo && !this.amareloBaldeAtivo){
+            this.roxoBaldeAtivo = !this.roxoBaldeAtivo;
+            this.azulBaldeAtivo = false;
+            this.vermelhoBaldeAtivo = false;
+            this.amareloBaldeAtivo = false;
+            this.lata = this.add.image(600, 500, 'lataRoxo').setOrigin(0,0);
+           } else if(this.amareloBaldeAtivo && !this.vermelhoBaldeAtivo){
+            this.verdeBaldeAtivo = !this.verdeBaldeAtivo;
+            this.azulBaldeAtivo = false;
+            this.vermelhoBaldeAtivo = false;
+            this.amareloBaldeAtivo = false;
+            this.lata = this.add.image(600, 500, 'lataVerde').setOrigin(0,0);
+        }
+           else{
+
           
-           this.lata = this.add.image(600, 500, 'lataAzul').setOrigin(0,0);
-            
+           if(!this.azulBaldeAtivo){
+                this.lata = this.add.image(600, 500, 'lataAzul').setOrigin(0,0);
+                this.azulBaldeAtivo = !this.azulBaldeAtivo;
+                console.log(this.azulBaldeAtivo);
+            }else{
+                this.lata = this.add.image(600, 500, 'lata').setOrigin(0,0);
+                this.azulBaldeAtivo = !this.azulBaldeAtivo;
+                console.log(this.azulBaldeAtivo);
+            }
+
+        }
         });
         this.amarelo.on("pointerdown", ()=> {
-            this.lata = this.add.image(600, 500, 'lataAmarelo').setOrigin(0,0);
-           
+            if(this.azulBaldeAtivo && !this.vermelhoBaldeAtivo){
+                this.verdeBaldeAtivo = !this.verdeBaldeAtivo;
+                this.azulBaldeAtivo = false;
+                this.vermelhoBaldeAtivo = false;
+               this.amareloBaldeAtivo = false;
+                this.lata = this.add.image(600, 500, 'lataVerde').setOrigin(0,0);
+            }else if(this.vermelhoBaldeAtivo && !this.azulBaldeAtivo){
+                this.laranjaBaldeAtivo = !this.laranjaBaldeAtivo;
+                this.azulBaldeAtivo = false;
+                this.vermelhoBaldeAtivo = false;
+                this.amareloBaldeAtivo = false;
+                
+                this.lata = this.add.image(600, 500, 'lataLaranja').setOrigin(0,0);
+            }
+            else{
+
+          
+            if(!this.amareloBaldeAtivo){
+                this.lata = this.add.image(600, 500, 'lataAmarelo').setOrigin(0,0);
+                this.amareloBaldeAtivo = !this.amareloBaldeAtivo;
+                console.log(this.amareloBaldeAtivo);
+            }else{
+                this.lata = this.add.image(600, 500, 'lata').setOrigin(0,0);
+                this.amareloBaldeAtivo = !this.amareloBaldeAtivo;
+                console.log(this.amareloBaldeAtivo); 
+            }
+        }
         });
     }
 
