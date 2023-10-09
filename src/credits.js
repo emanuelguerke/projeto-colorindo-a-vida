@@ -15,21 +15,24 @@ export class Credits extends Phaser.Scene{
         this.btnVoltar.setInteractive({ cursor: 'pointer' });
         this.btnVoltar.on("pointerdown", ()=> this.scene.start('Teacher'));
 
-        this.add.text(50, 100,"PROJETO COLORINDO A VIDA",  {fontSize: '50px', fontStyle: 'bold',fill:'white'});
-        this.add.text(50, 140,"ENGENHARIA DE SOFTWARE",  {fontSize: '50px', fontStyle: 'bold',fill:'white'});
-        this.add.text(50, 180,"UTFPR - 2023/2",  {fontSize: '50px', fontStyle: 'bold',fill:'white'});
-        this.add.text(50, 0,"PROFESSORA ISHIKAWA",  {fontSize: '50px', fontStyle: 'bold',fill:'white'});
+        this.add.text(100, 50,"PROJETO: COLORINDO A VIDA",  {fontSize: '30px', fontStyle: 'bold',fill:'white'});
+        this.add.text(100, 80,"ENGENHARIA DE SOFTWARE | UTFPR - 2023/2",  {fontSize: '25px', fontStyle: 'bold',fill:'white'});
 
+        this.add.rectangle(380, 200, 620, 60, 0xFFFFFF);
 
+        this.add.text(300, 140,"PROFESSORA",  {fontSize: '30px', fontStyle: 'bold',fill:'white'});
+        this.add.text(250, 180,"ELIANA ISHIKAWA",  {fontSize: '30px', fontStyle: 'bold',fill:'black'});
+ 
 
-        this.add.rectangle(0, 300, 800, 400, 0xFFFFFF).setOrigin(0,0);
+        this.add.rectangle(380, 400, 620, 300, 0xFFFFFF);
+       
 
-        this.add.text(50, 250,"ALUNOS",  {fontSize: '50px', fontStyle: 'bold',fill:'black'});
-        this.add.text(50, 320,"DAVI",  {fontSize: '30px', fontStyle: 'bold',fill:'black'});
-        this.add.text(50, 360,"EDUARDO",  {fontSize: '30px', fontStyle: 'bold',fill:'black'});
-        this.add.text(50, 400,"EMANUEL",  {fontSize: '30px', fontStyle: 'bold',fill:'black'});
-        this.add.text(50, 440,"LUIS",  {fontSize: '30px', fontStyle: 'bold',fill:'black'});
-        this.add.text(50, 480,"JOÃO",  {fontSize: '30px', fontStyle: 'bold',fill:'black'});
+        this.add.text(300, 250,"ALUNOS",  {fontSize: '50px', fontStyle: 'bold',fill:'black'});
+        this.add.text(100, 320,"DAVI SILVA BÜHER - RA:2374102",  {fontSize: '25px', fontStyle: 'bold',fill:'black'});
+        this.add.text(100, 360,"EDUARDO GOMES DOS SANTOS - RA:2164418",  {fontSize: '25px', fontStyle: 'bold',fill:'black'});
+        this.add.text(100, 400,"EMANUEL MAINARDES GUERKE - RA:1297333",  {fontSize: '25px', fontStyle: 'bold',fill:'black'});
+        this.add.text(100, 440,"LUIZ FELIPE HAGY - RA:2488035",  {fontSize: '25px', fontStyle: 'bold',fill:'black'});
+        this.add.text(100, 480,"JOÃO VITOR SANTOS - RA:2473615",  {fontSize: '25px', fontStyle: 'bold',fill:'black'});
 
     }
 
