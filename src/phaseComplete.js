@@ -21,7 +21,7 @@ export class PhaseComplete extends Phaser.Scene{
         this.continuar =this.add.image(250,500,"continuar").setOrigin(0,0);
         this.continuar.setInteractive();
 
-     //   this.continuar.on("pointerdown", ()=> this.scene.start('PlayGame'));
+        this.continuar.on("pointerdown", ()=> this.scene.start('Menu'));
         this.continuar.on('pointerover',this.passouPorCima);
         this.continuar.on('pointerout', this.saiuDeCima);
         

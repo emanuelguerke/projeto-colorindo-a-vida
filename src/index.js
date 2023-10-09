@@ -67,6 +67,10 @@ export class StartGame extends Phaser.Scene{
         this.load.image('bananaBranco','src/assets/bananaBranco.png');
         this.load.image('bananaVermelho','src/assets/bananaVermelho.png');
         this.load.image('bananaAzul','src/assets/bananaAzul.png');
+
+        //fase 2
+        this.load.image('questionIcon','src/assets/questionIcon.png');
+        this.load.image('ajuda','src/assets/ajuda.png');
         //EndGame
     //    this.load.image("btnVoltar", "src/assets/voltar.png");
         //

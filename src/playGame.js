@@ -38,6 +38,8 @@ export class PlayGame extends Phaser.Scene{
 
         this.fase1Completa = false;
         
+        this.questionIcon;
+        this.ajuda;
 
     }
 
@@ -53,7 +55,7 @@ export class PlayGame extends Phaser.Scene{
         this.vermelho = this.add.image(150, 530, 'vermelho').setOrigin(0,0);
         this.azul = this.add.image(300, 530, 'azul').setOrigin(0,0);
         this.amarelo = this.add.image(450, 530, 'amarelo').setOrigin(0,0);
-      //  this.lata = this.add.image(600, 500, 'lata').setOrigin(0,0);
+      
 
         this.coracao1 = this.add.image(10,50,"coracao").setOrigin(0,0);
         this.coracao2 =this.add.image(60,50,"coracao").setOrigin(0,0);
@@ -98,6 +100,34 @@ export class PlayGame extends Phaser.Scene{
        if(this.nivel==4){
         this.nivel4();
        }
+
+    //fase 2
+    }else if(this.faseAtual == 2){
+        this.lata = this.add.image(600, 500, 'lata').setOrigin(0,0);
+        this.questionIcon =this.add.image(770,690,"questionIcon");
+        this.questionIcon.setInteractive();
+
+        this.questionIcon.on('pointerover', ()=> this.ajuda = this.add.image(0, 0, 'ajuda').setOrigin(0,0));
+        this.questionIcon.on('pointerout', ()=> this.ajuda.destroy());
+       
+
+        //nivel 1
+    if(this.nivel==1){
+      //  this.nivel1();
+    }
+       //nivel 2
+    if(this.nivel==2){
+       
+    }
+      //nivel 3
+    if(this.nivel==3){
+
+    }
+    if(this.nivel==4){
+
+    }
+        
+
     }
        
 
