@@ -29,7 +29,7 @@ export class StartGame extends Phaser.Scene{
 
     preload(){
         //MUSIC
-        this.load.audio("menuMusic", "src/assets/music.mp3");
+    //    this.load.audio("menuMusic", "src/assets/music.mp3");
         //menu
         this.load.image("btnFase1", "src/assets/fase1.png");
         this.load.image("btnFase2", "src/assets/fase2.png");
@@ -52,7 +52,7 @@ export class StartGame extends Phaser.Scene{
         this.load.image('vermelho', 'src/assets/vermelho.png');
         this.load.image('azul', 'src/assets/azul.png');
         this.load.image('amarelo', 'src/assets/amarelo.png');
-        this.load.image('lata', 'src/assets/lata.png');
+       
         //fase 1 nivel 1
         this.load.image('quadradoMetadeVermelho', 'src/assets/quadradoMetadeVermelho.png');
         //fase 1 nivel 2
@@ -71,6 +71,17 @@ export class StartGame extends Phaser.Scene{
         //fase 2
         this.load.image('questionIcon','src/assets/questionIcon.png');
         this.load.image('ajuda','src/assets/ajuda.png');
+
+        this.load.image('lata', 'src/assets/lata.png');
+        this.load.image('lataVermelho', 'src/assets/lataVermelho.png');
+        this.load.image('lataAmarelo', 'src/assets/lataAmarelo.png');
+        this.load.image('lataAzul', 'src/assets/lataAzul.png');
+        this.load.image('lataVerde', 'src/assets/lataVerde.png');
+        this.load.image('lataRoxo', 'src/assets/lataRoxo.png');
+        this.load.image('lataLaranja', 'src/assets/lataLaranja.png');
+
+        //fase 2 nivel 1
+        this.load.image('quadradoMetadeVerde','src/assets/quadradoMetadeVerde.png');
         //EndGame
     //    this.load.image("btnVoltar", "src/assets/voltar.png");
         //

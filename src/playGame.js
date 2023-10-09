@@ -24,6 +24,7 @@ export class PlayGame extends Phaser.Scene{
         this.lata;
 
         this.quadradoMetadeVermelho;
+        this.quadradoMetadeVerde;
         this.txtMensagem;
         this.txtEnunciado;
 
@@ -104,7 +105,7 @@ export class PlayGame extends Phaser.Scene{
     //fase 2
     }else if(this.faseAtual == 2){
         this.lata = this.add.image(600, 500, 'lata').setOrigin(0,0);
-        this.questionIcon =this.add.image(770,690,"questionIcon");
+        this.questionIcon =this.add.image(770,450,"questionIcon");
         this.questionIcon.setInteractive();
 
         this.questionIcon.on('pointerover', ()=> this.ajuda = this.add.image(0, 0, 'ajuda').setOrigin(0,0));
@@ -113,7 +114,7 @@ export class PlayGame extends Phaser.Scene{
 
         //nivel 1
     if(this.nivel==1){
-      //  this.nivel1();
+        this.nivel1Fase2();
     }
        //nivel 2
     if(this.nivel==2){
@@ -341,6 +342,23 @@ export class PlayGame extends Phaser.Scene{
             setTimeout(() => { this.scene.start('PhaseComplete'); }, 3000);
             
 
+        });
+    }
+    nivel1Fase2(){
+        this.txtEnunciado = this.add.text(200, 40, 'PINTE DE VERDE A METADE FALTANTE DO QUADRADO', {fontSize: '20px', fill:'red'});
+        this.quadradoMetadeVermelho = this.add.image(400,300,"quadradoMetadeVerde");
+        this.vermelho.on("pointerdown", ()=> {
+            this.lata = this.add.image(600, 500, 'lataVermelho').setOrigin(0,0);
+
+        });
+        this.azul.on("pointerdown", ()=> {
+          
+           this.lata = this.add.image(600, 500, 'lataAzul').setOrigin(0,0);
+            
+        });
+        this.amarelo.on("pointerdown", ()=> {
+            this.lata = this.add.image(600, 500, 'lataAmarelo').setOrigin(0,0);
+           
         });
     }
 
