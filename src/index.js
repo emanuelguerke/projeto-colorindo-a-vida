@@ -132,7 +132,7 @@ export class StartGame extends Phaser.Scene{
             else if (event.keyCode === 32  || (event.keyCode >= 48 && event.keyCode < 90 && this.nomeJogador.text.length <20))
             {
                 this.nomeJogador.text += event.key;
-                this.nome = this.nomeJogador.text;
+                this.nome = this.nomeJogador.text.toUpperCase();
                 
             }
             if(typeof this.nome != 'undefined' && this.nome.length >=2){

@@ -3,6 +3,7 @@ export class Credits extends Phaser.Scene{
     constructor(){
         super("Credits");
         this.btnVoltar;
+        this.voltarOnde;
 
     }
     preload(){
@@ -13,7 +14,12 @@ export class Credits extends Phaser.Scene{
 
         this.btnVoltar = this.add.image(30,60,"btnVoltar");
         this.btnVoltar.setInteractive({ cursor: 'pointer' });
-        this.btnVoltar.on("pointerdown", ()=> this.scene.start('Teacher'));
+        if(this.voltarOnde == "teacher"){
+            this.btnVoltar.on("pointerdown", ()=> this.scene.start('Teacher'));
+        }else if(this.voltarOnde == "menu"){
+            this.btnVoltar.on("pointerdown", ()=> this.scene.start('Menu'));
+        }
+        
 
         this.add.text(100, 50,"PROJETO: COLORINDO A VIDA",  {fontSize: '30px', fontStyle: 'bold',fill:'white'});
         this.add.text(100, 80,"ENGENHARIA DE SOFTWARE | UTFPR - 2023/2",  {fontSize: '25px', fontStyle: 'bold',fill:'white'});

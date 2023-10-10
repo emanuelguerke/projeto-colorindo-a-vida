@@ -52,7 +52,10 @@ export class Menu extends Phaser.Scene{
         }
         
 
-        this.btnCreditos.on("pointerdown", ()=> this.scene.start('Credits'));
+        this.btnCreditos.on("pointerdown", ()=> { 
+            game.scene.keys["Credits"].voltarOnde = "menu";
+            this.scene.start('Credits');
+        });
         this.btnCreditos.on('pointerover',this.passouPorCima);
         this.btnCreditos.on('pointerout', this.saiuDeCima);
 

@@ -50,6 +50,8 @@ export class PlayGame extends Phaser.Scene{
         this.laranjaBaldeAtivo = false;
         this.verdeBaldeAtivo = false;
 
+        this.lataAtivo=false;
+
     }
 
     preload(){
@@ -70,9 +72,9 @@ export class PlayGame extends Phaser.Scene{
         this.coracao2 =this.add.image(60,50,"coracao").setOrigin(0,0);
         this.coracao3 =this.add.image(110,50,"coracao").setOrigin(0,0);
 
-        this.vermelho.setInteractive();
-        this.azul.setInteractive();
-        this.amarelo.setInteractive();
+        this.vermelho.setInteractive({ cursor: 'pointer' });
+        this.azul.setInteractive({ cursor: 'pointer' });
+        this.amarelo.setInteractive({ cursor: 'pointer' });
 
        
 
@@ -202,6 +204,86 @@ export class PlayGame extends Phaser.Scene{
         this.azulBaldeAtivo = false;
         this.vermelhoBaldeAtivo = false;
         this.amareloBaldeAtivo = false;
+    }
+    misturarCoresBalde(){
+        this.vermelho.on("pointerdown", ()=> {
+            if(this.azulBaldeAtivo && !this.amareloBaldeAtivo){
+                this.roxoBaldeAtivo = !this.roxoBaldeAtivo;
+                this.desativarBaldes();
+                
+                this.lata = this.add.image(600, 500, 'lataRoxo').setOrigin(0,0);
+            }else if(this.amareloBaldeAtivo && !this.azulBaldeAtivo){
+                this.laranjaBaldeAtivo = !this.laranjaBaldeAtivo;
+                this.desativarBaldes();
+                
+                this.lata = this.add.image(600, 500, 'lataLaranja').setOrigin(0,0);
+            }
+            else{
+
+           
+
+            if(!this.vermelhoBaldeAtivo){
+                this.lata = this.add.image(600, 500, 'lataVermelho').setOrigin(0,0);
+                this.vermelhoBaldeAtivo = !this.vermelhoBaldeAtivo;
+                console.log(this.vermelhoBaldeAtivo);
+            }else{
+                this.lata = this.add.image(600, 500, 'lata').setOrigin(0,0);
+                this.vermelhoBaldeAtivo = !this.vermelhoBaldeAtivo;
+                console.log(this.vermelhoBaldeAtivo);
+            }
+        }
+
+        });
+        this.azul.on("pointerdown", ()=> {
+           if(this.vermelhoBaldeAtivo && !this.amareloBaldeAtivo){
+            this.roxoBaldeAtivo = !this.roxoBaldeAtivo;
+            this.desativarBaldes();
+            this.lata = this.add.image(600, 500, 'lataRoxo').setOrigin(0,0);
+           } else if(this.amareloBaldeAtivo && !this.vermelhoBaldeAtivo){
+            this.verdeBaldeAtivo = !this.verdeBaldeAtivo;
+            this.desativarBaldes();
+            this.lata = this.add.image(600, 500, 'lataVerde').setOrigin(0,0);
+        }
+           else{
+
+          
+           if(!this.azulBaldeAtivo){
+                this.lata = this.add.image(600, 500, 'lataAzul').setOrigin(0,0);
+                this.azulBaldeAtivo = !this.azulBaldeAtivo;
+                console.log(this.azulBaldeAtivo);
+            }else{
+                this.lata = this.add.image(600, 500, 'lata').setOrigin(0,0);
+                this.azulBaldeAtivo = !this.azulBaldeAtivo;
+                console.log(this.azulBaldeAtivo);
+            }
+
+        }
+        });
+        this.amarelo.on("pointerdown", ()=> {
+            if(this.azulBaldeAtivo && !this.vermelhoBaldeAtivo){
+                this.verdeBaldeAtivo = !this.verdeBaldeAtivo;
+                this.desativarBaldes();
+                this.lata = this.add.image(600, 500, 'lataVerde').setOrigin(0,0);
+            }else if(this.vermelhoBaldeAtivo && !this.azulBaldeAtivo){
+                this.laranjaBaldeAtivo = !this.laranjaBaldeAtivo;
+                this.desativarBaldes();
+                
+                this.lata = this.add.image(600, 500, 'lataLaranja').setOrigin(0,0);
+            }
+            else{
+
+          
+            if(!this.amareloBaldeAtivo){
+                this.lata = this.add.image(600, 500, 'lataAmarelo').setOrigin(0,0);
+                this.amareloBaldeAtivo = !this.amareloBaldeAtivo;
+                console.log(this.amareloBaldeAtivo);
+            }else{
+                this.lata = this.add.image(600, 500, 'lata').setOrigin(0,0);
+                this.amareloBaldeAtivo = !this.amareloBaldeAtivo;
+                console.log(this.amareloBaldeAtivo); 
+            }
+        }
+        });
     }
 
     nivel1(){
@@ -360,85 +442,54 @@ export class PlayGame extends Phaser.Scene{
     nivel1Fase2(){
         this.txtEnunciado = this.add.text(200, 40, 'PINTE DE VERDE A METADE FALTANTE DO QUADRADO', {fontSize: '20px', fill:'red'});
         this.quadradoMetadeVerde = this.add.image(400,300,"quadradoMetadeVerde");
+        this.quadradoMetadeVerde.setInteractive({ cursor: 'pointer' });
+        this.lata.setInteractive({ cursor: 'pointer' });
 
-        this.vermelho.on("pointerdown", ()=> {
-            if(this.azulBaldeAtivo && !this.amareloBaldeAtivo){
-                this.roxoBaldeAtivo = !this.roxoBaldeAtivo;
-                this.desativarBaldes();
-                
-                this.lata = this.add.image(600, 500, 'lataRoxo').setOrigin(0,0);
-            }else if(this.amareloBaldeAtivo && !this.azulBaldeAtivo){
-                this.laranjaBaldeAtivo = !this.laranjaBaldeAtivo;
-                this.desativarBaldes();
-                
-                this.lata = this.add.image(600, 500, 'lataLaranja').setOrigin(0,0);
-            }
-            else{
-
-           
-
-            if(!this.vermelhoBaldeAtivo){
-                this.lata = this.add.image(600, 500, 'lataVermelho').setOrigin(0,0);
-                this.vermelhoBaldeAtivo = !this.vermelhoBaldeAtivo;
-                console.log(this.vermelhoBaldeAtivo);
+        this.lata.on("pointerdown", ()=> {
+            if(this.lata.texture.key != 'lata' && this.lata.texture.key != 'lataAzul' && this.lata.texture.key != 'lataVermelho' && this.lata.texture.key != 'lataAmarelo'){
+                this.lataAtivo = !this.lataAtivo;  
+                console.log(this.lataAtivo);
             }else{
-                this.lata = this.add.image(600, 500, 'lata').setOrigin(0,0);
-                this.vermelhoBaldeAtivo = !this.vermelhoBaldeAtivo;
-                console.log(this.vermelhoBaldeAtivo);
+                console.log("lata sem cor secundaria ainda");
             }
-        }
-
+             
         });
-        this.azul.on("pointerdown", ()=> {
-           if(this.vermelhoBaldeAtivo && !this.amareloBaldeAtivo){
-            this.roxoBaldeAtivo = !this.roxoBaldeAtivo;
-            this.desativarBaldes();
-            this.lata = this.add.image(600, 500, 'lataRoxo').setOrigin(0,0);
-           } else if(this.amareloBaldeAtivo && !this.vermelhoBaldeAtivo){
-            this.verdeBaldeAtivo = !this.verdeBaldeAtivo;
-            this.desativarBaldes();
-            this.lata = this.add.image(600, 500, 'lataVerde').setOrigin(0,0);
-        }
-           else{
 
-          
-           if(!this.azulBaldeAtivo){
-                this.lata = this.add.image(600, 500, 'lataAzul').setOrigin(0,0);
-                this.azulBaldeAtivo = !this.azulBaldeAtivo;
-                console.log(this.azulBaldeAtivo);
-            }else{
-                this.lata = this.add.image(600, 500, 'lata').setOrigin(0,0);
-                this.azulBaldeAtivo = !this.azulBaldeAtivo;
-                console.log(this.azulBaldeAtivo);
+        this.quadradoMetadeVerde.on("pointerdown", ()=> {
+            if(this.lataAtivo){
+                if(this.lata.texture.key == "lataVerde"){
+                    this.quadradoMetadeVerde.setTintFill(0x31a21d);
+                    this.venceuNivel();
+                }else{
+                    if(this.lata.texture.key == "lataRoxo"){
+                        this.quadradoMetadeVerde.setTintFill(0Xab19ed);
+                        this.destruirMensagem();
+                        this.destruirVidas();
+                        this.vermelho.destroy();
+                        this.lataAtivo = false;
+                        this.txtMensagem = this.add.text(250, 140, 'ERROU ESSE É O ROXO', {fontSize: '30px', fill:'violet'});
+                        this.lata = this.add.image(600, 500, 'lata').setOrigin(0,0);
+                        this.pontos = this.pontos-10;
+                        this.txtPontos.text = this.pontos;
+                    }else if(this.lata.texture.key == "lataLaranja"){
+                        this.quadradoMetadeVerde.setTintFill(0xfa590a);
+                        this.destruirMensagem();
+                        this.destruirVidas();
+                        this.vermelho.destroy();
+                        this.lataAtivo = false;
+                        this.txtMensagem = this.add.text(250, 140, 'ERROU ESSE É O LARANJA', {fontSize: '30px', fill:'orange'});
+                        this.lata = this.add.image(600, 500, 'lata').setOrigin(0,0);
+                        this.pontos = this.pontos-10;
+                        this.txtPontos.text = this.pontos;
+                    }else{
+                        console.log("MISTURE AS CORES ANTES");
+                    }
+
+                }
             }
-
-        }
         });
-        this.amarelo.on("pointerdown", ()=> {
-            if(this.azulBaldeAtivo && !this.vermelhoBaldeAtivo){
-                this.verdeBaldeAtivo = !this.verdeBaldeAtivo;
-                this.desativarBaldes();
-                this.lata = this.add.image(600, 500, 'lataVerde').setOrigin(0,0);
-            }else if(this.vermelhoBaldeAtivo && !this.azulBaldeAtivo){
-                this.laranjaBaldeAtivo = !this.laranjaBaldeAtivo;
-                this.desativarBaldes();
-                
-                this.lata = this.add.image(600, 500, 'lataLaranja').setOrigin(0,0);
-            }
-            else{
 
-          
-            if(!this.amareloBaldeAtivo){
-                this.lata = this.add.image(600, 500, 'lataAmarelo').setOrigin(0,0);
-                this.amareloBaldeAtivo = !this.amareloBaldeAtivo;
-                console.log(this.amareloBaldeAtivo);
-            }else{
-                this.lata = this.add.image(600, 500, 'lata').setOrigin(0,0);
-                this.amareloBaldeAtivo = !this.amareloBaldeAtivo;
-                console.log(this.amareloBaldeAtivo); 
-            }
-        }
-        });
+      this.misturarCoresBalde();
     }
 
 }
