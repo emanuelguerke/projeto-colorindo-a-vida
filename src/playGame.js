@@ -42,6 +42,10 @@ export class PlayGame extends Phaser.Scene{
         this.questionIcon;
         this.ajuda;
 
+        this.vermelhoAtivo=false;
+        this.amareloAtivo=false;
+        this.azulAtivo=false;
+        //fase2
         this.vermelhoBaldeAtivo = false; 
         this.azulBaldeAtivo = false; 
         this.amareloBaldeAtivo = false; 
@@ -159,7 +163,7 @@ export class PlayGame extends Phaser.Scene{
     venceuNivel(){
         this.destruirMensagem();
         this.atribuirPontosLevel();
-        this.txtMensagem = this.add.text(250, 140, 'ACERTOU MIZERAVI!', {fontSize: '30px', fill:'red'});
+        this.txtMensagem = this.add.text(250, 140, 'ACERTOU!', {fontSize: '30px', fill:'red'});
         this.vermelho.destroy();
         this.azul.destroy();
         this.amarelo.destroy();
@@ -200,11 +204,43 @@ export class PlayGame extends Phaser.Scene{
         }
 
     }
+    //fase2
     desativarBaldes(){
         this.azulBaldeAtivo = false;
         this.vermelhoBaldeAtivo = false;
         this.amareloBaldeAtivo = false;
     }
+    //fase1
+    desativarCoresBola(){
+        this.azulAtivo = false;
+        this.vermelhoAtivo = false;
+        this.amareloAtivo = false;
+    }
+    //fase1
+    selecionarCor(){
+        this.vermelho.on("pointerdown", ()=> {
+            if(!this.amareloAtivo && !this.azulAtivo){
+                this.vermelhoAtivo = !this.vermelhoAtivo;
+                console.log("Vermelho: "+this.vermelhoAtivo);
+            }
+        });
+
+        this.amarelo.on("pointerdown", ()=> {
+            if(!this.vermelhoAtivo && !this.azulAtivo){
+                this.amareloAtivo = !this.amareloAtivo;
+                console.log("Amarelo: "+this.amareloAtivo);
+            }
+        });
+
+        this.azul.on("pointerdown", ()=> {
+            if(!this.vermelhoAtivo && !this.amareloAtivo){
+                this.azulAtivo = !this.azulAtivo;
+                console.log("Azul: "+this.azulAtivo);
+            }
+        });
+        
+    }
+    //fase2
     misturarCoresBalde(){
         this.vermelho.on("pointerdown", ()=> {
             if(this.azulBaldeAtivo && !this.amareloBaldeAtivo){
@@ -289,155 +325,146 @@ export class PlayGame extends Phaser.Scene{
     nivel1(){
         this.txtEnunciado = this.add.text(200, 40, 'PINTE DE VERMELHO A METADE FALTANTE DO QUADRADO', {fontSize: '20px', fill:'red'});
         this.quadradoMetadeVermelho = this.add.image(400,300,"quadradoMetadeVermelho");
-        this.vermelho.on("pointerdown", ()=> {
-            this.rec = this.add.rectangle(340, 300, 130, 250, 0xff0000);
-           this.venceuNivel();
+        this.quadradoMetadeVermelho.setInteractive({ cursor: 'pointer' });
+        this.desativarCoresBola();
+        this.selecionarCor();
 
+        this.quadradoMetadeVermelho.on("pointerdown", ()=>{
+            if(this.vermelhoAtivo){
+                this.rec = this.add.rectangle(340, 300, 130, 250, 0xff0000);
+                this.venceuNivel();
+            }else if(this.azulAtivo){
+                this.rec = this.add.rectangle(340, 300, 130, 250, 0x0f00ff);
+                this.destruirMensagem();
+                this.destruirVidas();
+                this.txtMensagem = this.add.text(250, 140, 'ERROU ESSE É O AZUL', {fontSize: '30px', fill:'blue'});
+                this.pontos = this.pontos-10;
+                this.txtPontos.text = this.pontos;
+                this.azul.destroy();
+                this.azulAtivo=false;
+            }else if(this.amareloAtivo){
+                this.rec = this.add.rectangle(340, 300, 130, 250, 0xffe400);
+                this.destruirMensagem();
+                this.destruirVidas();
+                this.txtMensagem = this.add.text(250, 140, 'ERROU ESSE É O AMARELO', {fontSize: '30px', fill:'yellow'});
+                this.pontos = this.pontos-10;
+                this.txtPontos.text = this.pontos;
+                this.amarelo.destroy();
+                this.amareloAtivo=false;
+            }
+        });
 
-        });
-        this.azul.on("pointerdown", ()=> {
-           // this.quadradoMetadeVermelho.setTintFill(0x0f00ff);
-            this.rec = this.add.rectangle(340, 300, 130, 250, 0x0f00ff);
-            this.destruirMensagem();
-            this.destruirVidas();
-            this.txtMensagem = this.add.text(250, 140, 'ERROU ESSE É O AZUL', {fontSize: '30px', fill:'blue'});
-            this.pontos = this.pontos-10;
-            this.txtPontos.text = this.pontos;
-            this.azul.destroy();
-            
-            
-        });
-        //this.amarelo.on("pointerdown", ()=> this.scene.start('PlayGame'));
-        this.amarelo.on("pointerdown", ()=> {
-         //   this.quadradoMetadeVermelho.setTintFill(0xffe400);
-            this.rec = this.add.rectangle(340, 300, 130, 250, 0xffe400);
-            this.destruirMensagem();
-            this.destruirVidas();
-            this.txtMensagem = this.add.text(250, 140, 'ERROU ESSE É O AMARELO', {fontSize: '30px', fill:'yellow'});
-            this.pontos = this.pontos-10;
-            this.txtPontos.text = this.pontos;
-            this.amarelo.destroy();
-            
-
-        });
+      
     }
 
     nivel2(){
         this.txtEnunciado = this.add.text(200, 40, 'PINTE DE AZUL O QUADRADO', {fontSize: '20px', fill:'blue'});
         this.quadradoMetadeVermelho.destroy();
         this.quadradoBranco = this.add.image(400,300,"quadradoBranco");
-        this.vermelho.on("pointerdown", ()=> {
-            this.quadradoBranco.setTintFill(0xff0000);
-            
-            this.destruirMensagem();
-            this.destruirVidas();
-            
-            this.txtMensagem = this.add.text(250, 140, 'ERROU ESSE É O VERMELHO', {fontSize: '30px', fill:'red'});
-            this.pontos = this.pontos-10;
-            this.txtPontos.text = this.pontos;
-            this.vermelho.destroy();
+        this.quadradoBranco.setInteractive({ cursor: 'pointer' });
+        this.desativarCoresBola();
+        this.selecionarCor();
 
+        this.quadradoBranco.on("pointerdown", ()=>{
+            if(this.vermelhoAtivo){
+                this.quadradoBranco.setTintFill(0xff0000);
+                this.destruirMensagem();
+                this.destruirVidas();
+                this.txtMensagem = this.add.text(250, 140, 'ERROU ESSE É O VERMELHO', {fontSize: '30px', fill:'red'});
+                this.pontos = this.pontos-10;
+                this.txtPontos.text = this.pontos;
+                this.vermelho.destroy();
+                this.vermelhoAtivo=false;
+            }else if(this.azulAtivo){
+                this.quadradoBranco.setTintFill(0x0f00ff);
+                this.venceuNivel();
+            }else if(this.amareloAtivo){
+                this.quadradoBranco.setTintFill(0xffe400);
+                this.destruirMensagem();
+                this.destruirVidas();
+                this.txtMensagem = this.add.text(250, 140, 'ERROU ESSE É O AMARELO', {fontSize: '30px', fill:'yellow'});
+                this.pontos = this.pontos-10;
+                this.txtPontos.text = this.pontos;
+                this.amarelo.destroy();
+                this.amareloAtivo=false;
+            }
+        });
 
-        });
-        this.azul.on("pointerdown", ()=> {
-            this.quadradoBranco.setTintFill(0x0f00ff);
-            this.venceuNivel();
-            
-            
-        });
-        //this.amarelo.on("pointerdown", ()=> this.scene.start('PlayGame'));
-        this.amarelo.on("pointerdown", ()=> {
-            this.quadradoBranco.setTintFill(0xffe400);
-            this.destruirMensagem();
-            this.destruirVidas();
-            this.txtMensagem = this.add.text(250, 140, 'ERROU ESSE É O AMARELO', {fontSize: '30px', fill:'yellow'});
-            this.pontos = this.pontos-10;
-            this.txtPontos.text = this.pontos;
-            this.amarelo.destroy();
-            
-
-        });
     }
     
     nivel3(){
         this.txtEnunciado = this.add.text(200, 40, 'PINTE DE VERMELHO A METADE FALTANTE DA MAÇA', {fontSize: '20px', fill:'red'});
         this.maca = this.add.image(400,300,"macaMetadeBranca");
-        this.vermelho.on("pointerdown", ()=> {
-         //   this.quadradoMetadeVermelho.setTintFill(0xff0000);
-         this.maca = this.add.image(400,300,"maca");
-         this.venceuNivel();
-          
+        this.maca.setInteractive({ cursor: 'pointer' });
+        this.desativarCoresBola();
+        this.selecionarCor();
 
+        this.maca.on("pointerdown", ()=>{
+            if(this.vermelhoAtivo){
+                this.maca = this.add.image(400,300,"maca");
+                this.venceuNivel();
+            }else if(this.azulAtivo){
+                this.maca = this.add.image(400,300,"macaMetadeAzul");
+                this.destruirMensagem();
+                this.destruirVidas();
+                this.txtMensagem = this.add.text(250, 140, 'ERROU ESSE É O AZUL', {fontSize: '30px', fill:'blue'});
+                this.pontos = this.pontos-10;
+                this.txtPontos.text = this.pontos;
+                this.azul.destroy();
+                this.azulAtivo=false;
+            }else if(this.amareloAtivo){
+                this.maca = this.add.image(400,300,"macaMetadeAmarela");
+                this.destruirMensagem();
+                this.destruirVidas();
+                this.txtMensagem = this.add.text(250, 140, 'ERROU ESSE É O AMARELO', {fontSize: '30px', fill:'yellow'});
+                this.pontos = this.pontos-10;
+                this.txtPontos.text = this.pontos;
+                this.amarelo.destroy();
+                this.amareloAtivo=false;
+            }
         });
-        this.azul.on("pointerdown", ()=> {
-           // this.quadradoMetadeVermelho.setTintFill(0x0f00ff);
-           // this.rec = this.add.rectangle(340, 300, 130, 250, 0x0f00ff);
-           this.maca = this.add.image(400,300,"macaMetadeAzul");
-            this.destruirMensagem();
-            this.destruirVidas();
-            this.txtMensagem = this.add.text(250, 140, 'ERROU ESSE É O AZUL', {fontSize: '30px', fill:'blue'});
-            this.pontos = this.pontos-10;
-            this.txtPontos.text = this.pontos;
-            this.azul.destroy();
-            
-            
-        });
-        //this.amarelo.on("pointerdown", ()=> this.scene.start('PlayGame'));
-        this.amarelo.on("pointerdown", ()=> {
-         //   this.quadradoMetadeVermelho.setTintFill(0xffe400);
-         //   this.rec = this.add.rectangle(340, 300, 130, 250, 0xffe400);
-            this.maca = this.add.image(400,300,"macaMetadeAmarela");
-            this.destruirMensagem();
-            this.destruirVidas();
-            this.txtMensagem = this.add.text(250, 140, 'ERROU ESSE É O AMARELO', {fontSize: '30px', fill:'yellow'});
-            this.pontos = this.pontos-10;
-            this.txtPontos.text = this.pontos;
-            this.amarelo.destroy();
-            
-
-        });
+       
     }
     nivel4(){
         this.txtEnunciado = this.add.text(200, 40, 'PINTE A BANANA CONFORME A IMAGEM', {fontSize: '20px', fill:'yellow'});
         this.bananaFixa = this.add.image(300,300,"banana");
         this.banana = this.add.image(600,300,"bananaBranco");
+        this.banana.setInteractive({ cursor: 'pointer' });
+        this.desativarCoresBola();
+        this.selecionarCor();
 
-        this.vermelho.on("pointerdown", ()=> {
-            this.banana = this.add.image(600,300,"bananaVermelho");
-            this.destruirMensagem();
-            this.destruirVidas();
-            this.txtMensagem = this.add.text(250, 140, 'ERROU ESSE É O VERMELHO', {fontSize: '30px', fill:'red'});
-            this.pontos = this.pontos-10;
-            this.txtPontos.text = this.pontos;
-            this.vermelho.destroy();
-          
-
-
+        this.banana.on("pointerdown", ()=>{
+            if(this.vermelhoAtivo){
+                this.banana = this.add.image(600,300,"bananaVermelho");
+                this.destruirMensagem();
+                this.destruirVidas();
+                this.txtMensagem = this.add.text(250, 140, 'ERROU ESSE É O VERMELHO', {fontSize: '30px', fill:'red'});
+                this.pontos = this.pontos-10;
+                this.txtPontos.text = this.pontos;
+                this.vermelho.destroy();
+                this.vermelhoAtivo=false;
+            }else if(this.azulAtivo){
+                this.banana = this.add.image(600,300,"bananaAzul");
+                this.destruirMensagem();
+                this.destruirVidas();
+                this.txtMensagem = this.add.text(250, 140, 'ERROU ESSE É O AZUL', {fontSize: '30px', fill:'blue'});
+                this.pontos = this.pontos-10;
+                this.txtPontos.text = this.pontos;
+                this.azul.destroy();
+                this.azulAtivo=false;
+            }else if(this.amareloAtivo){
+                this.banana = this.add.image(600,300,"banana");
+                this.destruirMensagem();
+                this.vermelho.destroy();
+                this.azul.destroy();
+                this.amarelo.destroy();
+                this.contador.paused = !this.contador.paused;
+                this.txtMensagem = this.add.text(250, 140, 'ACERTOU!', {fontSize: '30px', fill:'red'});
+                setTimeout(() => { this.scene.start('PhaseComplete'); }, 3000);
+            }
         });
-        this.azul.on("pointerdown", ()=> {
-    
-            this.banana = this.add.image(600,300,"bananaAzul");
-            this.destruirMensagem();
-            this.destruirVidas();
-            this.txtMensagem = this.add.text(250, 140, 'ERROU ESSE É O AZUL', {fontSize: '30px', fill:'blue'});
-            this.pontos = this.pontos-10;
-            this.txtPontos.text = this.pontos;
-            this.azul.destroy();
-    
-            
-        });
-        this.amarelo.on("pointerdown", ()=> {
-            this.banana = this.add.image(600,300,"banana");
-            this.destruirMensagem();
-            this.vermelho.destroy();
-            this.azul.destroy();
-            this.amarelo.destroy();
-            this.contador.paused = !this.contador.paused;
-            this.txtMensagem = this.add.text(250, 140, 'ACERTOU MIZERAVI!', {fontSize: '30px', fill:'red'});
-            setTimeout(() => { this.scene.start('PhaseComplete'); }, 3000);
-            
 
-        });
+     
     }
     nivel1Fase2(){
         this.txtEnunciado = this.add.text(200, 40, 'PINTE DE VERDE A METADE FALTANTE DO QUADRADO', {fontSize: '20px', fill:'red'});
