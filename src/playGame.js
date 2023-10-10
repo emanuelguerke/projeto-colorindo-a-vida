@@ -332,6 +332,7 @@ export class PlayGame extends Phaser.Scene{
         this.quadradoMetadeVermelho.on("pointerdown", ()=>{
             if(this.vermelhoAtivo){
                 this.rec = this.add.rectangle(340, 300, 130, 250, 0xff0000);
+                this.quadradoMetadeVermelho.removeInteractive();
                 this.venceuNivel();
             }else if(this.azulAtivo){
                 this.rec = this.add.rectangle(340, 300, 130, 250, 0x0f00ff);
@@ -377,6 +378,7 @@ export class PlayGame extends Phaser.Scene{
                 this.vermelhoAtivo=false;
             }else if(this.azulAtivo){
                 this.quadradoBranco.setTintFill(0x0f00ff);
+                this.quadradoBranco.removeInteractive();
                 this.venceuNivel();
             }else if(this.amareloAtivo){
                 this.quadradoBranco.setTintFill(0xffe400);
@@ -401,8 +403,12 @@ export class PlayGame extends Phaser.Scene{
 
         this.maca.on("pointerdown", ()=>{
             if(this.vermelhoAtivo){
+                this.maca.removeInteractive();
                 this.maca = this.add.image(400,300,"maca");
+
                 this.venceuNivel();
+               
+
             }else if(this.azulAtivo){
                 this.maca = this.add.image(400,300,"macaMetadeAzul");
                 this.destruirMensagem();
@@ -453,6 +459,7 @@ export class PlayGame extends Phaser.Scene{
                 this.azul.destroy();
                 this.azulAtivo=false;
             }else if(this.amareloAtivo){
+                this.banana.removeInteractive();
                 this.banana = this.add.image(600,300,"banana");
                 this.destruirMensagem();
                 this.vermelho.destroy();
@@ -460,6 +467,8 @@ export class PlayGame extends Phaser.Scene{
                 this.amarelo.destroy();
                 this.contador.paused = !this.contador.paused;
                 this.txtMensagem = this.add.text(250, 140, 'ACERTOU!', {fontSize: '30px', fill:'red'});
+                
+
                 setTimeout(() => { this.scene.start('PhaseComplete'); }, 3000);
             }
         });
@@ -486,6 +495,8 @@ export class PlayGame extends Phaser.Scene{
             if(this.lataAtivo){
                 if(this.lata.texture.key == "lataVerde"){
                     this.quadradoMetadeVerde.setTintFill(0x31a21d);
+                    this.quadradoMetadeVerde.removeInteractive();
+
                     this.venceuNivel();
                 }else{
                     if(this.lata.texture.key == "lataRoxo"){
