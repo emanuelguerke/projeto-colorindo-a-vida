@@ -87,6 +87,16 @@ export class StartGame extends Phaser.Scene{
         this.load.image('peraBranco','src/assets/peraBranco.png');
         this.load.image('peraRoxo','src/assets/peraRoxo.png');
         this.load.image('peraLaranja','src/assets/peraLaranja.png');
+        //fase 2 nivel 3
+        this.load.image('uva','src/assets/uva.png');
+        this.load.image('uvaBranco','src/assets/uvaBranco.png');
+        this.load.image('uvaVerde','src/assets/uvaVerde.png');
+        this.load.image('uvaLaranja','src/assets/uvaLaranja.png');
+        //fase 2 nivel 3
+        this.load.image('laranja','src/assets/laranja.png');
+        this.load.image('laranjaBranco','src/assets/laranjaBranco.png');
+        this.load.image('laranjaVerde','src/assets/laranjaVerde.png');
+        this.load.image('laranjaRoxo','src/assets/laranjaRoxo.png');
         //EndGame
     //    this.load.image("btnVoltar", "src/assets/voltar.png");
         //

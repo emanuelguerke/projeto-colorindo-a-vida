@@ -30,7 +30,7 @@ export class Menu extends Phaser.Scene{
         this.btnVoltar.setInteractive({ cursor: 'pointer' });
 
         this.btnFase1.on("pointerdown", ()=> {
-            game.scene.keys["PlayGame"].faseAtual =1; 
+            game.scene.keys["PlayGame"].faseAtual =1;
             game.scene.keys["PlayGame"].nivel = 1;
             game.scene.keys["PlayGame"].pontos = 0;
             this.scene.start('PlayGame');
@@ -38,7 +38,7 @@ export class Menu extends Phaser.Scene{
         this.btnFase1.on('pointerover',this.passouPorCima);
         this.btnFase1.on('pointerout', this.saiuDeCima);
 
-        if(game.scene.keys["StartGame"].fase1Completa)
+        if(game.scene.keys["PlayGame"].fase1Completa)
         {
             this.btnFase2.setInteractive({ cursor: 'pointer' });
             this.btnFase2.on("pointerdown", ()=> {

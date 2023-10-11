@@ -15,17 +15,23 @@ export class PhaseComplete extends Phaser.Scene{
 
         this.add.text(50, 100,"PARABENS",  {fontSize: '50px', fontStyle: 'bold',fill:'white'});
         this.add.text(50, 200,"VOCE COMPLETOU A FASE ",  {fontSize: '50px', fontStyle: 'bold',fill:'white'});
-        game.scene.keys["StartGame"].fase1Completa = true;
+       // game.scene.keys["StartGame"].fase1Completa = true;
       //  game.scene.keys["PlayGame"].nivel++;
         this.lata =this.add.image(300,300,"lata").setOrigin(0,0);
         this.continuar =this.add.image(250,500,"continuar").setOrigin(0,0);
         this.continuar.setInteractive();
 
         this.continuar.on("pointerdown", ()=> {
-            game.scene.keys["PlayGame"].faseAtual =2;
-            game.scene.keys["PlayGame"].nivel = 1;
-            game.scene.keys["PlayGame"].pontos = 0;
-            this.scene.start('PlayGame')});
+            if(game.scene.keys["PlayGame"].fase1Completa && !game.scene.keys["PlayGame"].fase2Completa){
+                game.scene.keys["PlayGame"].faseAtual =2;
+                game.scene.keys["PlayGame"].nivel = 1;
+                game.scene.keys["PlayGame"].pontos = 0;
+                this.scene.start('PlayGame');
+            }if(game.scene.keys["PlayGame"].fase1Completa && game.scene.keys["PlayGame"].fase2Completa){
+                this.scene.start('Menu');
+            }
+            
+        });
         
         this.continuar.on('pointerover',this.passouPorCima);
         this.continuar.on('pointerout', this.saiuDeCima);
