@@ -1,6 +1,6 @@
 {
   "name": "projeto-colorindo-a-vida",
-  "version": "3.24.1",
+  "version": "1.0.0",
   "description": "projeto colorindo a vida utfpr 2023",
   "homepage": "https://github.com/emanuelguerke/projeto-colorindo-a-vida#readme",
   "main": "index.js",
@@ -48,6 +48,6 @@
   "dependencies": {
     "@babel/polyfill": "^7.10.4",
     "express": "^4.18.2",
-    "phaser": "^3.24.1"
+    "phaser": "^3.60.0"
   }
 }

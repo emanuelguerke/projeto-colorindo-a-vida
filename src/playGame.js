@@ -63,6 +63,13 @@ export class PlayGame extends Phaser.Scene{
         this.uvaFixa;
         this.uva;
 
+        this.vermelhoFX;
+        this.amareloFX;
+        this.azulFX;
+
+        this.lataFX;
+       
+      
     }
 
     preload(){
@@ -71,13 +78,23 @@ export class PlayGame extends Phaser.Scene{
     }
 
     create(){
+        
+      
+
         this.vidas=3;
           
         this.baseBranca = this.add.rectangle(0, 490, 800, 200, 0xFFFFFF).setOrigin(0,0);
         this.vermelho = this.add.image(150, 530, 'vermelho').setOrigin(0,0);
         this.azul = this.add.image(300, 530, 'azul').setOrigin(0,0);
         this.amarelo = this.add.image(450, 530, 'amarelo').setOrigin(0,0);
-      
+        
+        this.vermelhoFX = this.vermelho.preFX.addShine(2,2,5,0);
+        this.amareloFX = this.amarelo.preFX.addShine(2,2,5,0);
+        this.azulFX = this.azul.preFX.addShine(2,2,5,0);
+        this.vermelhoFX.setActive(false);
+        this.amareloFX.setActive(false);
+        this.azulFX.setActive(false);
+        
 
         this.coracao1 = this.add.image(10,50,"coracao").setOrigin(0,0);
         this.coracao2 =this.add.image(60,50,"coracao").setOrigin(0,0);
@@ -126,6 +143,9 @@ export class PlayGame extends Phaser.Scene{
     //fase 2
     }else if(this.faseAtual == 2){
         this.lata = this.add.image(600, 500, 'lata').setOrigin(0,0);
+        this.lataFX = this.lata.preFX.addGlow(0x000000, 8, 8, true, 0.1, 12);
+        this.lataFX.setActive(false);
+
         this.questionIcon =this.add.image(770,450,"questionIcon");
         this.questionIcon.setInteractive();
 
@@ -216,14 +236,17 @@ export class PlayGame extends Phaser.Scene{
         this.azulBaldeAtivo = false;
         this.vermelhoBaldeAtivo = false;
         this.amareloBaldeAtivo = false;
+        this.lataFX.setActive(false); 
     }
     verificaLata(){
         this.lata.on("pointerdown", ()=> {
             if(this.lata.texture.key != 'lata' && this.lata.texture.key != 'lataAzul' && this.lata.texture.key != 'lataVermelho' && this.lata.texture.key != 'lataAmarelo'){
-                this.lataAtivo = !this.lataAtivo;  
+                this.lataAtivo = !this.lataAtivo; 
+                this.lataFX.setActive(this.lataAtivo); 
                 console.log(this.lataAtivo);
             }else{
                 console.log("lata sem cor secundaria ainda");
+                this.lataFX.setActive(false); 
             }
              
         });
@@ -233,12 +256,14 @@ export class PlayGame extends Phaser.Scene{
         this.azulAtivo = false;
         this.vermelhoAtivo = false;
         this.amareloAtivo = false;
+
     }
     //fase1
     selecionarCor(){
         this.vermelho.on("pointerdown", ()=> {
             if(!this.amareloAtivo && !this.azulAtivo){
                 this.vermelhoAtivo = !this.vermelhoAtivo;
+                this.vermelhoFX.setActive(this.vermelhoAtivo);
                 console.log("Vermelho: "+this.vermelhoAtivo);
             }
         });
@@ -246,6 +271,7 @@ export class PlayGame extends Phaser.Scene{
         this.amarelo.on("pointerdown", ()=> {
             if(!this.vermelhoAtivo && !this.azulAtivo){
                 this.amareloAtivo = !this.amareloAtivo;
+                this.amareloFX.setActive(this.amareloAtivo);
                 console.log("Amarelo: "+this.amareloAtivo);
             }
         });
@@ -253,6 +279,7 @@ export class PlayGame extends Phaser.Scene{
         this.azul.on("pointerdown", ()=> {
             if(!this.vermelhoAtivo && !this.amareloAtivo){
                 this.azulAtivo = !this.azulAtivo;
+                this.azulFX.setActive(this.azulAtivo);
                 console.log("Azul: "+this.azulAtivo);
             }
         });
@@ -266,11 +293,14 @@ export class PlayGame extends Phaser.Scene{
                 this.desativarBaldes();
                 
                 this.lata = this.add.image(600, 500, 'lataRoxo').setOrigin(0,0);
+              ;
+
             }else if(this.amareloBaldeAtivo && !this.azulBaldeAtivo){
                 this.laranjaBaldeAtivo = !this.laranjaBaldeAtivo;
                 this.desativarBaldes();
                 
                 this.lata = this.add.image(600, 500, 'lataLaranja').setOrigin(0,0);
+             
             }
             else{
 
@@ -532,6 +562,7 @@ export class PlayGame extends Phaser.Scene{
                         this.lata = this.add.image(600, 500, 'lata').setOrigin(0,0);
                         this.pontos = this.pontos-10;
                         this.txtPontos.text = this.pontos;
+                        this.lataFX.setActive(false);
                     }else if(this.lata.texture.key == "lataLaranja"){
                         this.quadradoMetadeVerde.setTintFill(0xfa590a);
                         this.destruirMensagem();
@@ -542,6 +573,7 @@ export class PlayGame extends Phaser.Scene{
                         this.lata = this.add.image(600, 500, 'lata').setOrigin(0,0);
                         this.pontos = this.pontos-10;
                         this.txtPontos.text = this.pontos;
+                        this.lataFX.setActive(false);
                     }else{
                         console.log("MISTURE AS CORES ANTES");
                     }
@@ -580,6 +612,7 @@ export class PlayGame extends Phaser.Scene{
                         this.lata = this.add.image(600, 500, 'lata').setOrigin(0,0);
                         this.pontos = this.pontos-10;
                         this.txtPontos.text = this.pontos;
+                        this.lataFX.setActive(false);
                     }else if(this.lata.texture.key == "lataLaranja"){
                         this.pera = this.add.image(600,300,"peraLaranja");
                         this.destruirMensagem();
@@ -590,6 +623,7 @@ export class PlayGame extends Phaser.Scene{
                         this.lata = this.add.image(600, 500, 'lata').setOrigin(0,0);
                         this.pontos = this.pontos-10;
                         this.txtPontos.text = this.pontos;
+                        this.lataFX.setActive(false);
                     }else{
                         console.log("MISTURE AS CORES ANTES");
                     }
@@ -622,6 +656,7 @@ export class PlayGame extends Phaser.Scene{
                     this.lata = this.add.image(600, 500, 'lata').setOrigin(0,0);
                     this.pontos = this.pontos-10;
                     this.txtPontos.text = this.pontos;
+                    this.lataFX.setActive(false);
                 }else{
                     if(this.lata.texture.key == "lataRoxo"){
                         this.uva = this.add.image(600,300,"uva");
@@ -638,6 +673,7 @@ export class PlayGame extends Phaser.Scene{
                         this.lata = this.add.image(600, 500, 'lata').setOrigin(0,0);
                         this.pontos = this.pontos-10;
                         this.txtPontos.text = this.pontos;
+                        this.lataFX.setActive(false);
                     }else{
                         console.log("MISTURE AS CORES ANTES");
                     }
@@ -670,6 +706,7 @@ export class PlayGame extends Phaser.Scene{
                     this.lata = this.add.image(600, 500, 'lata').setOrigin(0,0);
                     this.pontos = this.pontos-10;
                     this.txtPontos.text = this.pontos;
+                    this.lataFX.setActive(false);
                 }else{
                     if(this.lata.texture.key == "lataRoxo"){
                         this.laranja = this.add.image(600,300,"laranjaRoxo");
@@ -681,6 +718,7 @@ export class PlayGame extends Phaser.Scene{
                         this.lata = this.add.image(600, 500, 'lata').setOrigin(0,0);
                         this.pontos = this.pontos-10;
                         this.txtPontos.text = this.pontos;
+                        this.lataFX.setActive(false);
                     }else if(this.lata.texture.key == "lataLaranja"){
                         this.laranja = this.add.image(600,300,"laranja");
                         this.laranja.removeInteractive();
