@@ -56,6 +56,9 @@ export class PlayGame extends Phaser.Scene{
 
         this.lataAtivo=false;
 
+        this.peraFixa;
+        this.pera;
+
     }
 
     preload(){
@@ -132,7 +135,7 @@ export class PlayGame extends Phaser.Scene{
     }
        //nivel 2
     if(this.nivel==2){
-       
+       this.nivel2Fase2();
     }
       //nivel 3
     if(this.nivel==3){
@@ -209,6 +212,17 @@ export class PlayGame extends Phaser.Scene{
         this.azulBaldeAtivo = false;
         this.vermelhoBaldeAtivo = false;
         this.amareloBaldeAtivo = false;
+    }
+    verificaLata(){
+        this.lata.on("pointerdown", ()=> {
+            if(this.lata.texture.key != 'lata' && this.lata.texture.key != 'lataAzul' && this.lata.texture.key != 'lataVermelho' && this.lata.texture.key != 'lataAmarelo'){
+                this.lataAtivo = !this.lataAtivo;  
+                console.log(this.lataAtivo);
+            }else{
+                console.log("lata sem cor secundaria ainda");
+            }
+             
+        });
     }
     //fase1
     desativarCoresBola(){
@@ -480,22 +494,15 @@ export class PlayGame extends Phaser.Scene{
         this.quadradoMetadeVerde.setInteractive({ cursor: 'pointer' });
         this.lata.setInteractive({ cursor: 'pointer' });
 
-        this.lata.on("pointerdown", ()=> {
-            if(this.lata.texture.key != 'lata' && this.lata.texture.key != 'lataAzul' && this.lata.texture.key != 'lataVermelho' && this.lata.texture.key != 'lataAmarelo'){
-                this.lataAtivo = !this.lataAtivo;  
-                console.log(this.lataAtivo);
-            }else{
-                console.log("lata sem cor secundaria ainda");
-            }
-             
-        });
-
+        this.verificaLata();
+        this.misturarCoresBalde();
         this.quadradoMetadeVerde.on("pointerdown", ()=> {
             if(this.lataAtivo){
                 if(this.lata.texture.key == "lataVerde"){
                     this.quadradoMetadeVerde.setTintFill(0x31a21d);
                     this.quadradoMetadeVerde.removeInteractive();
-
+             //       this.desativarBaldes();
+                    this.lataAtivo=false;
                     this.venceuNivel();
                 }else{
                     if(this.lata.texture.key == "lataRoxo"){
@@ -526,7 +533,55 @@ export class PlayGame extends Phaser.Scene{
             }
         });
 
-      this.misturarCoresBalde();
+     
     }
 
+    nivel2Fase2(){
+        this.txtEnunciado = this.add.text(200, 40, 'PINTE DE VERDE A PERA', {fontSize: '20px', fill:'green'});
+        this.peraFixa = this.add.image(300,300,"pera");
+        this.pera = this.add.image(600,300,"peraBranco");
+        this.pera.setInteractive({ cursor: 'pointer' });
+        this.lata.setInteractive({ cursor: 'pointer' });
+        this.verificaLata();
+        this.misturarCoresBalde();
+
+        this.pera.on("pointerdown", ()=> {
+            if(this.lataAtivo){
+                if(this.lata.texture.key == "lataVerde"){
+                    this.pera = this.add.image(600,300,"pera");
+                    this.pera.removeInteractive();
+            //        this.desativarBaldes();
+                    this.lataAtivo=false;
+                    this.venceuNivel();
+                }else{
+                    if(this.lata.texture.key == "lataRoxo"){
+                        this.pera = this.add.image(600,300,"peraRoxo");
+                        this.destruirMensagem();
+                        this.destruirVidas();
+                        this.vermelho.destroy();
+                        this.lataAtivo = false;
+                        this.txtMensagem = this.add.text(250, 140, 'ERROU ESSE É O ROXO', {fontSize: '30px', fill:'violet'});
+                        this.lata = this.add.image(600, 500, 'lata').setOrigin(0,0);
+                        this.pontos = this.pontos-10;
+                        this.txtPontos.text = this.pontos;
+                    }else if(this.lata.texture.key == "lataLaranja"){
+                        this.pera = this.add.image(600,300,"peraLaranja");
+                        this.destruirMensagem();
+                        this.destruirVidas();
+                        this.vermelho.destroy();
+                        this.lataAtivo = false;
+                        this.txtMensagem = this.add.text(250, 140, 'ERROU ESSE É O LARANJA', {fontSize: '30px', fill:'orange'});
+                        this.lata = this.add.image(600, 500, 'lata').setOrigin(0,0);
+                        this.pontos = this.pontos-10;
+                        this.txtPontos.text = this.pontos;
+                    }else{
+                        console.log("MISTURE AS CORES ANTES");
+                    }
+
+                }
+            }
+        });
+
+
+    }
 }
