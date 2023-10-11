@@ -30,7 +30,7 @@ export class Menu extends Phaser.Scene{
         this.btnVoltar.setInteractive({ cursor: 'pointer' });
 
         this.btnFase1.on("pointerdown", ()=> {
-            game.scene.keys["PlayGame"].faseAtual =2; //mudar
+            game.scene.keys["PlayGame"].faseAtual =1; 
             game.scene.keys["PlayGame"].nivel = 1;
             game.scene.keys["PlayGame"].pontos = 0;
             this.scene.start('PlayGame');

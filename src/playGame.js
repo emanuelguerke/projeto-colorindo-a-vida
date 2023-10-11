@@ -501,7 +501,6 @@ export class PlayGame extends Phaser.Scene{
                 if(this.lata.texture.key == "lataVerde"){
                     this.quadradoMetadeVerde.setTintFill(0x31a21d);
                     this.quadradoMetadeVerde.removeInteractive();
-             //       this.desativarBaldes();
                     this.lataAtivo=false;
                     this.venceuNivel();
                 }else{
@@ -550,7 +549,6 @@ export class PlayGame extends Phaser.Scene{
                 if(this.lata.texture.key == "lataVerde"){
                     this.pera = this.add.image(600,300,"pera");
                     this.pera.removeInteractive();
-            //        this.desativarBaldes();
                     this.lataAtivo=false;
                     this.venceuNivel();
                 }else{
