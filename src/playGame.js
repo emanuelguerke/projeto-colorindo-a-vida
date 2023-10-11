@@ -403,11 +403,10 @@ export class PlayGame extends Phaser.Scene{
 
         this.maca.on("pointerdown", ()=>{
             if(this.vermelhoAtivo){
-                this.maca.removeInteractive();
+                this.vermelhoAtivo=false;
                 this.maca = this.add.image(400,300,"maca");
-
                 this.venceuNivel();
-               
+                
 
             }else if(this.azulAtivo){
                 this.maca = this.add.image(400,300,"macaMetadeAzul");
@@ -459,7 +458,7 @@ export class PlayGame extends Phaser.Scene{
                 this.azul.destroy();
                 this.azulAtivo=false;
             }else if(this.amareloAtivo){
-                this.banana.removeInteractive();
+                this.amareloAtivo=false;
                 this.banana = this.add.image(600,300,"banana");
                 this.destruirMensagem();
                 this.vermelho.destroy();
