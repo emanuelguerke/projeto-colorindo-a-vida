@@ -540,13 +540,15 @@ export class PlayGame extends Phaser.Scene{
         this.quadradoMetadeVerde.on("pointerdown", ()=> {
             if(this.lataAtivo){
                 if(this.lata.texture.key == "lataVerde"){
-                    this.quadradoMetadeVerde.setTintFill(0x31a21d);
+                   // this.quadradoMetadeVerde.setTintFill(0x31a21d);
+                    this.rec = this.add.rectangle(340, 300, 130, 250, 0x31a21d);
                     this.quadradoMetadeVerde.removeInteractive();
                     this.lataAtivo=false;
                     this.venceuNivel();
                 }else{
                     if(this.lata.texture.key == "lataRoxo"){
-                        this.quadradoMetadeVerde.setTintFill(0Xab19ed);
+                     //   this.quadradoMetadeVerde.setTintFill(0Xab19ed);
+                        this.rec = this.add.rectangle(340, 300, 130, 250, 0Xab19ed);
                         this.destruirMensagem();
                         this.destruirVidas();
                         this.vermelho.destroy();
@@ -557,7 +559,8 @@ export class PlayGame extends Phaser.Scene{
                         this.txtPontos.text = this.pontos;
                         this.lataFX.setActive(false);
                     }else if(this.lata.texture.key == "lataLaranja"){
-                        this.quadradoMetadeVerde.setTintFill(0xfa590a);
+                      //  this.quadradoMetadeVerde.setTintFill(0xfa590a);
+                        this.rec = this.add.rectangle(340, 300, 130, 250, 0xfa590a);
                         this.destruirMensagem();
                         this.destruirVidas();
                         this.vermelho.destroy();
