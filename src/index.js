@@ -25,6 +25,7 @@ export class StartGame extends Phaser.Scene{
         this.nomeJogador;
         this.menuMusic;
         this.game;
+        this.logado=false;
     }
 
     preload(){
@@ -42,6 +43,7 @@ export class StartGame extends Phaser.Scene{
         this.load.image("btnCriterios", "src/assets/criterios.png");
         this.load.image("btnRanking", "src/assets/ranking.png");
         //StartGame  
+        this.load.image("logout", "src/assets/logout.png");
         this.load.image("areaDoProfessor", "src/assets/areaDoProfessor.png");
         this.load.image("iniciarJogo", "src/assets/iniciarJogo.png");
         
@@ -109,55 +111,74 @@ export class StartGame extends Phaser.Scene{
    //     this.menuMusic = this.sound.add('menuMusic');
    //     this.menuMusic.play();
         this.add.text(180, 150,"NOME DO JOGADOR",  {fontSize: '50px', fontStyle: 'bold',fill:'white'});
-        this.caixaNome = this.add.rectangle(200, 220, 400, 80, 0xFFFFFF).setOrigin(0,0);
+        this.caixaNome = this.add.rectangle(200, 220, 400, 60, 0xFFFFFF).setOrigin(0,0);
       //  var caixaAreaProfessor = this.add.rectangle(400, 10, 390, 100, 0xFFFFFF).setOrigin(0,0);
         
-        this.nomeJogador = this.add.text(200, 220, '', { font: '30px Courier', fill: 'black' });
-       
-        this.areaDoProfessor = this.add.image(660,50,"areaDoProfessor").setInteractive({ cursor: 'pointer' });
+   //     this.nomeJogador = this.add.text(200, 220, '', { font: '30px Courier', fill: 'black' });
       
+        this.areaDoProfessor = this.add.image(660,50,"areaDoProfessor").setInteractive({ cursor: 'pointer' });
+        
+        this.logout = this.add.image(140,50,"logout").setInteractive({ cursor: 'pointer' });
+
+        this.logout.on("pointerdown", ()=> {
+            this.logado = false;
+            //provisório até colococar algum banco de dados pra administrar a sessão
+            game.scene.keys["PlayGame"].fase1Completa= false;
+            game.scene.keys["PlayGame"].fase2Completa=false;
+            this.scene.start('StartGame');
+            //this.nomeJogador.destroy();
+        
+        });
+        this.logout.on('pointerover', this.passouPorCima);
+        this.logout.on('pointerout', this.saiuDeCima);
 
         this.areaDoProfessor.on('pointerover', this.passouPorCima);
-
         this.areaDoProfessor.on('pointerout', this.saiuDeCima);
         
+       
     
         this.areaDoProfessor.on("pointerdown", ()=> this.scene.start('Teacher'));
 
         this.iniciarJogo = this.add.image(400,400,"iniciarJogo");
         this.iniciarJogo.setInteractive({ cursor: 'pointer' });
-    
-     //   this.iniciarJogo.on("pointerdown", ()=> this.scene.start('PlayGame'));
-       
         
         this.iniciarJogo.on('pointerover',this.passouPorCima);
 
         this.iniciarJogo.on('pointerout', this.saiuDeCima);
-
-        this.input.keyboard.on('keydown', event =>
-        {
-            
-           
-
-            if (event.keyCode === 8 && this.nomeJogador.text.length > 0)
+        if(!this.logado){
+            this.nomeJogador = this.add.text(200, 220, '', { font: '30px Courier', fill: 'black' });
+            this.input.keyboard.on('keydown', event =>
             {
-                this.nomeJogador.text = this.nomeJogador.text.substr(0, this.nomeJogador.text.length - 1);
-                this.nome = this.nomeJogador.text;
-            }
-            else if (event.keyCode === 32  || (event.keyCode >= 48 && event.keyCode < 90 && this.nomeJogador.text.length <20))
-            {
-                this.nomeJogador.text += event.key;
-                this.nome = this.nomeJogador.text.toUpperCase();
                 
-            }
-            if(typeof this.nome != 'undefined' && this.nome.length >=2){
-                this.iniciarJogo.on("pointerdown", ()=> this.scene.start('Menu'));
-                console.log("pode começar")
-            }
-         //   console.log(this.nome);
-            
-        });
-       
+               
+    
+                if (event.keyCode === 8 && this.nomeJogador.text.length > 0)
+                {
+                    this.nomeJogador.text = this.nomeJogador.text.substr(0, this.nomeJogador.text.length - 1);
+                    this.nome = this.nomeJogador.text;
+                }
+                else if (event.keyCode === 32  || (event.keyCode >= 48 && event.keyCode < 90 && this.nomeJogador.text.length <20))
+                {
+                    this.nomeJogador.text += event.key;
+                    this.nome = this.nomeJogador.text.toUpperCase();
+                    
+                }
+                if(typeof this.nome != 'undefined' && this.nome.length >=2){
+                    this.iniciarJogo.on("pointerdown", ()=> this.scene.start('Menu'));
+                    this.logado=true;
+                    console.log("pode começar");
+
+                }
+             //   console.log(this.nome);
+                
+            });
+           
+        }else if(this.logado){
+            this.nomeJogador = this.add.text(200, 220, this.nome, { font: '30px Courier', fill: 'black' });
+            this.iniciarJogo.on("pointerdown", ()=> this.scene.start('Menu'));
+            console.log("pode começar logado");
+        }
+      
         
 
     }

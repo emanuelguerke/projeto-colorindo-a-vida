@@ -112,7 +112,7 @@ export class PlayGame extends Phaser.Scene{
         this.add.text(520, this.baseBranca.y-480, 'PONTUAÇAO: ', {fontSize: '30px', fill:'black'});
    
       
-        this.txtNome = this.add.text(5, this.baseBranca.y-380, game.scene.keys["StartGame"].nome, {fontSize: '30px', fill:'red'});
+        this.txtNome = this.add.text(5, this.baseBranca.y-380, game.scene.keys["StartGame"].nome, {fontSize: '15px', fill:'red'});
         this.txtNivel = this.add.text(120, this.baseBranca.y-480, this.nivel, {fontSize: '30px', fill:'red'});
         this.txtPontos = this.add.text(700, this.baseBranca.y-480,this.pontos, {fontSize: '30px', fill:'red'});
     
