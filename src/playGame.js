@@ -163,21 +163,14 @@ export class PlayGame extends Phaser.Scene{
     }
       //nivel 3
     if(this.nivel==3){
-        this.nivel2Fase3();
+        this.nivel3Fase2();
     }
     if(this.nivel==4){
-        this.nivel2Fase4();
+        this.nivel4Fase2();
     }
         
 
     }
-       
-
-        //não sei se o active é realmente necessario...
-      //  this.amarelo.active = false;
-      //  this.amarelo.visible = false;
-     //   this.azul.visible = false
-
        
         
     }
@@ -634,7 +627,7 @@ export class PlayGame extends Phaser.Scene{
 
 
     }
-    nivel2Fase3(){
+    nivel3Fase2(){
         this.txtEnunciado = this.add.text(200, 40, 'PINTE DE ROXO A UVA', {fontSize: '20px', fill:'violet'});
         this.uvaFixa = this.add.image(300,300,"uva");
         this.uva = this.add.image(600,300,"uvaBranco");
@@ -684,7 +677,7 @@ export class PlayGame extends Phaser.Scene{
 
 
     }
-    nivel2Fase4(){
+    nivel4Fase2(){
         this.txtEnunciado = this.add.text(200, 40, 'PINTE DE LARANJA A LARANJA', {fontSize: '20px', fill:'orange'});
         this.laranjaFixa = this.add.image(300,300,"laranja");
         this.laranja = this.add.image(600,300,"laranjaBranco");
@@ -727,7 +720,7 @@ export class PlayGame extends Phaser.Scene{
                         this.vermelho.destroy();
                         this.azul.destroy();
                         this.amarelo.destroy();
-                        this.lata.destroy();
+                     //   this.lata.destroy();
                         this.contador.paused = !this.contador.paused;
                        
                         if(this.vidas == 3){

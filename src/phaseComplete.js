@@ -5,7 +5,8 @@ export class PhaseComplete extends Phaser.Scene{
         this.continuar;
         this.lata;
         this.btnVoltar;
-
+        this.pontuacaoFase1;
+        this.pontuacaoFase2;
     }
     preload(){
         
@@ -13,8 +14,17 @@ export class PhaseComplete extends Phaser.Scene{
 
     create(){
 
+        if(game.scene.keys["PlayGame"].faseAtual == 1){
+            this.pontuacaoFase1 =  game.scene.keys["PlayGame"].pontos;
+        }
+        else if(game.scene.keys["PlayGame"].faseAtual == 2){
+            this.pontuacaoFase2 =  game.scene.keys["PlayGame"].pontos;
+        }
+        
         this.add.text(50, 100,"PARABENS",  {fontSize: '50px', fontStyle: 'bold',fill:'white'});
         this.add.text(50, 200,"VOCE COMPLETOU A FASE ",  {fontSize: '50px', fontStyle: 'bold',fill:'white'});
+        this.add.text(50, 250, game.scene.keys["PlayGame"].pontos+"PONTOS",  {fontSize: '50px', fontStyle: 'bold',fill:'white'});
+        
        // game.scene.keys["StartGame"].fase1Completa = true;
       //  game.scene.keys["PlayGame"].nivel++;
         this.lata =this.add.image(300,300,"lata").setOrigin(0,0);
@@ -22,12 +32,12 @@ export class PhaseComplete extends Phaser.Scene{
         this.continuar.setInteractive();
 
         this.continuar.on("pointerdown", ()=> {
-            if(game.scene.keys["PlayGame"].fase1Completa && !game.scene.keys["PlayGame"].fase2Completa){
+            if(game.scene.keys["PlayGame"].faseAtual == 1){
                 game.scene.keys["PlayGame"].faseAtual =2;
                 game.scene.keys["PlayGame"].nivel = 1;
                 game.scene.keys["PlayGame"].pontos = 0;
                 this.scene.start('PlayGame');
-            }if(game.scene.keys["PlayGame"].fase1Completa && game.scene.keys["PlayGame"].fase2Completa){
+            }else if(game.scene.keys["PlayGame"].faseAtual == 2){
                 this.scene.start('Menu');
             }
             
