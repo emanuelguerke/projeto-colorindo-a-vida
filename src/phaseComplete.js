@@ -7,6 +7,7 @@ export class PhaseComplete extends Phaser.Scene{
         this.btnVoltar;
         this.pontuacaoFase1;
         this.pontuacaoFase2;
+
     }
     preload(){
         
@@ -38,6 +39,10 @@ export class PhaseComplete extends Phaser.Scene{
                 game.scene.keys["PlayGame"].pontos = 0;
                 this.scene.start('PlayGame');
             }else if(game.scene.keys["PlayGame"].faseAtual == 2){
+                const score = {name: game.scene.keys["StartGame"].nome,  pontuacaofase1:  this.pontuacaoFase1, pontuacaofase2:  this.pontuacaoFase2};
+                const scores = JSON.parse(localStorage.getItem("scores")) || [];
+                scores.push(score);
+                localStorage.setItem("scores", JSON.stringify(scores));
                 this.scene.start('Menu');
             }
             
