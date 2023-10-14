@@ -30,7 +30,7 @@ export class PlayGame extends Phaser.Scene{
         //enunciado 
         this.txtEnunciado;
         this.enunciadoPosicaoX = 200;
-        this.enunciadoPosicaoY = 40;
+        this.enunciadoPosicaoY = 60;
         this.txtEnunciadoEstiloFonte = 'bold';
         this.enunciadoTamanhoFonte = '20px';
         //mensagem erro ou acerto
@@ -720,7 +720,7 @@ export class PlayGame extends Phaser.Scene{
                         this.laranja = this.add.image(600,300,"laranjaRoxo");
                         this.destruirMensagem();
                         this.destruirVidas();
-           //             this.vermelho.destroy();
+                        this.azul.destroy();
                         this.lataAtivo = false;
                         this.txtMensagem = this.add.text(this.txtMensagemPosicaoX, this.txtMensagemPosicaoY, 'ERROU ESSE É O ROXO', {fontSize: this.txtMensagemTamanhoFonte, fontStyle: this.txtMensagemEstiloFonte, fill:'violet'});
                         this.lata = this.add.image(600, 500, 'lata').setOrigin(0,0);
