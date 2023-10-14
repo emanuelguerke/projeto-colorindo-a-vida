@@ -25,8 +25,20 @@ export class PlayGame extends Phaser.Scene{
 
         this.quadradoMetadeVermelho;
         this.quadradoMetadeVerde;
-        this.txtMensagem;
+ 
+
+        //enunciado 
         this.txtEnunciado;
+        this.enunciadoPosicaoX = 200;
+        this.enunciadoPosicaoY = 40;
+        this.txtEnunciadoEstiloFonte = 'bold';
+        this.enunciadoTamanhoFonte = '20px';
+        //mensagem erro ou acerto
+        this.txtMensagem;
+        this.txtMensagemPosicaoX=270;
+        this.txtMensagemPosicaoY=120;
+        this.txtMensagemEstiloFonte = 'bold';
+        this.txtMensagemTamanhoFonte='30px';
 
         this.coracao1;
         this.coracao2;
@@ -107,16 +119,16 @@ export class PlayGame extends Phaser.Scene{
        
 
         //pontos/vidas/nivel
-        this.add.text(10, this.baseBranca.y-480, 'NÍVEL: ', {fontSize: '30px', fill:'black'});
-        this.add.text(320, this.baseBranca.y-480, 'TEMPO: ', {fontSize: '30px', fill:'black'});
-        this.add.text(520, this.baseBranca.y-480, 'PONTUAÇAO: ', {fontSize: '30px', fill:'black'});
+        this.add.text(10, this.baseBranca.y-480, 'NÍVEL: ', {fontSize: '30px', fontStyle: 'bold', fill:'black'});
+        this.add.text(320, this.baseBranca.y-480, 'TEMPO: ', {fontSize: '30px', fontStyle: 'bold', fill:'black'});
+        this.add.text(520, this.baseBranca.y-480, 'PONTUAÇAO: ', {fontSize: '30px', fontStyle: 'bold', fill:'black'});
    
       
-        this.txtNome = this.add.text(5, this.baseBranca.y-380, game.scene.keys["StartGame"].nome, {fontSize: '15px', fill:'red'});
-        this.txtNivel = this.add.text(120, this.baseBranca.y-480, this.nivel, {fontSize: '30px', fill:'red'});
-        this.txtPontos = this.add.text(700, this.baseBranca.y-480,this.pontos, {fontSize: '30px', fill:'red'});
+        this.txtNome = this.add.text(5, this.baseBranca.y-380, game.scene.keys["StartGame"].nome, {fontSize: '18px', fontStyle: 'bold', fill:'black'});
+        this.txtNivel = this.add.text(120, this.baseBranca.y-480, this.nivel, {fontSize: '30px', fontStyle: 'bold', fill:'red'});
+        this.txtPontos = this.add.text(700, this.baseBranca.y-480,this.pontos, {fontSize: '30px', fontStyle: 'bold', fill:'red'});
     
-        this.txtTempo = this.add.text(430, this.baseBranca.y-480,this.tempo, {fontSize: '30px', fill:'green'});
+        this.txtTempo = this.add.text(430, this.baseBranca.y-480,this.tempo, {fontSize: '30px', fontStyle: 'bold', fill:'green'});
         
         this.contador = this.time.addEvent({delay:1000, repeat: this.tempo});
 
@@ -183,7 +195,7 @@ export class PlayGame extends Phaser.Scene{
     venceuNivel(){
         this.destruirMensagem();
         this.atribuirPontosLevel();
-        this.txtMensagem = this.add.text(250, 140, 'ACERTOU!', {fontSize: '30px', fill:'red'});
+        this.txtMensagem = this.add.text(this.txtMensagemPosicaoX, this.txtMensagemPosicaoY, 'ACERTOU!', {fontSize: this.txtMensagemTamanhoFonte, fontStyle: this.txtMensagemEstiloFonte, fill:'red'});
         this.vermelho.destroy();
         this.azul.destroy();
         this.amarelo.destroy();
@@ -364,7 +376,7 @@ export class PlayGame extends Phaser.Scene{
     }
 
     nivel1(){
-        this.txtEnunciado = this.add.text(200, 40, 'PINTE DE VERMELHO A METADE FALTANTE DO QUADRADO', {fontSize: '20px', fill:'red'});
+        this.txtEnunciado = this.add.text(this.enunciadoPosicaoX, this.enunciadoPosicaoY, 'PINTE DE VERMELHO A METADE QUE FALTA DO QUADRADO', {fontSize: this.enunciadoTamanhoFonte, fontStyle: this.txtEnunciadoEstiloFonte, fill:'red'});
         this.quadradoMetadeVermelho = this.add.image(400,300,"quadradoMetadeVermelho");
         this.quadradoMetadeVermelho.setInteractive({ cursor: 'pointer' });
         this.desativarCoresBola();
@@ -379,7 +391,7 @@ export class PlayGame extends Phaser.Scene{
                 this.rec = this.add.rectangle(340, 300, 130, 250, 0x0f00ff);
                 this.destruirMensagem();
                 this.destruirVidas();
-                this.txtMensagem = this.add.text(250, 140, 'ERROU ESSE É O AZUL', {fontSize: '30px', fill:'blue'});
+                this.txtMensagem = this.add.text(this.txtMensagemPosicaoX, this.txtMensagemPosicaoY, 'ERROU ESSE É O AZUL', {fontSize: this.txtMensagemTamanhoFonte, fontStyle: this.txtMensagemEstiloFonte, fill:'blue'});
                 this.pontos = this.pontos-10;
                 this.txtPontos.text = this.pontos;
                 this.azul.destroy();
@@ -388,7 +400,7 @@ export class PlayGame extends Phaser.Scene{
                 this.rec = this.add.rectangle(340, 300, 130, 250, 0xffe400);
                 this.destruirMensagem();
                 this.destruirVidas();
-                this.txtMensagem = this.add.text(250, 140, 'ERROU ESSE É O AMARELO', {fontSize: '30px', fill:'yellow'});
+                this.txtMensagem = this.add.text(this.txtMensagemPosicaoX, this.txtMensagemPosicaoY, 'ERROU ESSE É O AMARELO', {fontSize: this.txtMensagemTamanhoFonte, fontStyle: this.txtMensagemEstiloFonte, fill:'yellow'});
                 this.pontos = this.pontos-10;
                 this.txtPontos.text = this.pontos;
                 this.amarelo.destroy();
@@ -400,7 +412,7 @@ export class PlayGame extends Phaser.Scene{
     }
 
     nivel2(){
-        this.txtEnunciado = this.add.text(200, 40, 'PINTE DE AZUL O QUADRADO', {fontSize: '20px', fill:'blue'});
+        this.txtEnunciado = this.add.text(this.enunciadoPosicaoX, this.enunciadoPosicaoY, 'PINTE DE AZUL O QUADRADO', {fontSize: this.enunciadoTamanhoFonte, fontStyle: this.txtEnunciadoEstiloFonte, fill:'blue'});
         this.quadradoMetadeVermelho.destroy();
         this.quadradoBranco = this.add.image(400,300,"quadradoBranco");
         this.quadradoBranco.setInteractive({ cursor: 'pointer' });
@@ -412,7 +424,7 @@ export class PlayGame extends Phaser.Scene{
                 this.quadradoBranco.setTintFill(0xff0000);
                 this.destruirMensagem();
                 this.destruirVidas();
-                this.txtMensagem = this.add.text(250, 140, 'ERROU ESSE É O VERMELHO', {fontSize: '30px', fill:'red'});
+                this.txtMensagem = this.add.text(this.txtMensagemPosicaoX, this.txtMensagemPosicaoY, 'ERROU ESSE É O VERMELHO', {fontSize: this.txtMensagemTamanhoFonte, fontStyle: this.txtMensagemEstiloFonte, fill:'red'});
                 this.pontos = this.pontos-10;
                 this.txtPontos.text = this.pontos;
                 this.vermelho.destroy();
@@ -425,7 +437,7 @@ export class PlayGame extends Phaser.Scene{
                 this.quadradoBranco.setTintFill(0xffe400);
                 this.destruirMensagem();
                 this.destruirVidas();
-                this.txtMensagem = this.add.text(250, 140, 'ERROU ESSE É O AMARELO', {fontSize: '30px', fill:'yellow'});
+                this.txtMensagem = this.add.text(this.txtMensagemPosicaoX, this.txtMensagemPosicaoY, 'ERROU ESSE É O AMARELO', {fontSize: this.txtMensagemTamanhoFonte, fontStyle: this.txtMensagemEstiloFonte, fill:'yellow'});
                 this.pontos = this.pontos-10;
                 this.txtPontos.text = this.pontos;
                 this.amarelo.destroy();
@@ -436,7 +448,7 @@ export class PlayGame extends Phaser.Scene{
     }
     
     nivel3(){
-        this.txtEnunciado = this.add.text(200, 40, 'PINTE DE VERMELHO A METADE FALTANTE DA MAÇA', {fontSize: '20px', fill:'red'});
+        this.txtEnunciado = this.add.text(this.enunciadoPosicaoX, this.enunciadoPosicaoY, 'PINTE DE VERMELHO A METADE QUE FALTA DA MAÇA', {fontSize: this.enunciadoTamanhoFonte, fontStyle: this.txtEnunciadoEstiloFonte,  fill:'red'});
         this.maca = this.add.image(400,300,"macaMetadeBranca");
         this.maca.setInteractive({ cursor: 'pointer' });
         this.desativarCoresBola();
@@ -453,7 +465,7 @@ export class PlayGame extends Phaser.Scene{
                 this.maca = this.add.image(400,300,"macaMetadeAzul");
                 this.destruirMensagem();
                 this.destruirVidas();
-                this.txtMensagem = this.add.text(250, 140, 'ERROU ESSE É O AZUL', {fontSize: '30px', fill:'blue'});
+                this.txtMensagem = this.add.text(this.txtMensagemPosicaoX, this.txtMensagemPosicaoY, 'ERROU ESSE É O AZUL', {fontSize: this.txtMensagemTamanhoFonte, fill:'blue'});
                 this.pontos = this.pontos-10;
                 this.txtPontos.text = this.pontos;
                 this.azul.destroy();
@@ -462,7 +474,7 @@ export class PlayGame extends Phaser.Scene{
                 this.maca = this.add.image(400,300,"macaMetadeAmarela");
                 this.destruirMensagem();
                 this.destruirVidas();
-                this.txtMensagem = this.add.text(250, 140, 'ERROU ESSE É O AMARELO', {fontSize: '30px', fill:'yellow'});
+                this.txtMensagem = this.add.text(this.txtMensagemPosicaoX, this.txtMensagemPosicaoY, 'ERROU ESSE É O AMARELO', {fontSize: this.txtMensagemTamanhoFonte, fontStyle: this.txtMensagemEstiloFonte, fill:'yellow'});
                 this.pontos = this.pontos-10;
                 this.txtPontos.text = this.pontos;
                 this.amarelo.destroy();
@@ -472,7 +484,7 @@ export class PlayGame extends Phaser.Scene{
        
     }
     nivel4(){
-        this.txtEnunciado = this.add.text(200, 40, 'PINTE A BANANA CONFORME A IMAGEM', {fontSize: '20px', fill:'yellow'});
+        this.txtEnunciado = this.add.text(this.enunciadoPosicaoX, this.enunciadoPosicaoY, 'PINTE A BANANA CONFORME A IMAGEM', {fontSize: this.enunciadoTamanhoFonte, fontStyle: this.txtEnunciadoEstiloFonte, fill:'yellow'});
         this.bananaFixa = this.add.image(300,300,"banana");
         this.banana = this.add.image(600,300,"bananaBranco");
         this.banana.setInteractive({ cursor: 'pointer' });
@@ -484,7 +496,7 @@ export class PlayGame extends Phaser.Scene{
                 this.banana = this.add.image(600,300,"bananaVermelho");
                 this.destruirMensagem();
                 this.destruirVidas();
-                this.txtMensagem = this.add.text(250, 140, 'ERROU ESSE É O VERMELHO', {fontSize: '30px', fill:'red'});
+                this.txtMensagem = this.add.text(this.txtMensagemPosicaoX, this.txtMensagemPosicaoY, 'ERROU ESSE É O VERMELHO', {fontSize: this.txtMensagemTamanhoFonte, fill:'red'});
                 this.pontos = this.pontos-10;
                 this.txtPontos.text = this.pontos;
                 this.vermelho.destroy();
@@ -493,7 +505,7 @@ export class PlayGame extends Phaser.Scene{
                 this.banana = this.add.image(600,300,"bananaAzul");
                 this.destruirMensagem();
                 this.destruirVidas();
-                this.txtMensagem = this.add.text(250, 140, 'ERROU ESSE É O AZUL', {fontSize: '30px', fill:'blue'});
+                this.txtMensagem = this.add.text(this.txtMensagemPosicaoX, this.txtMensagemPosicaoY, 'ERROU ESSE É O AZUL', {fontSize: this.txtMensagemTamanhoFonte, fontStyle: this.txtMensagemEstiloFonte, fill:'blue'});
                 this.pontos = this.pontos-10;
                 this.txtPontos.text = this.pontos;
                 this.azul.destroy();
@@ -520,7 +532,7 @@ export class PlayGame extends Phaser.Scene{
                 }
 
                 this.fase1Completa = true;
-                this.txtMensagem = this.add.text(250, 140, 'ACERTOU!', {fontSize: '30px', fill:'red'});
+                this.txtMensagem = this.add.text(this.txtMensagemPosicaoX, this.txtMensagemPosicaoY, 'ACERTOU!', {fontSize: this.txtMensagemTamanhoFonte, fontStyle: this.txtMensagemEstiloFonte, fill:'red'});
                 
 
                 setTimeout(() => { this.scene.start('PhaseComplete'); }, 3000);
@@ -530,7 +542,7 @@ export class PlayGame extends Phaser.Scene{
      
     }
     nivel1Fase2(){
-        this.txtEnunciado = this.add.text(200, 40, 'PINTE DE VERDE A METADE FALTANTE DO QUADRADO', {fontSize: '20px', fill:'red'});
+        this.txtEnunciado = this.add.text(this.enunciadoPosicaoX, this.enunciadoPosicaoY, 'PINTE DE VERDE A METADE QUE FALTA DO QUADRADO', {fontSize: this.enunciadoTamanhoFonte, fontStyle: this.txtEnunciadoEstiloFonte, fill:'green'});
         this.quadradoMetadeVerde = this.add.image(400,300,"quadradoMetadeVerde");
         this.quadradoMetadeVerde.setInteractive({ cursor: 'pointer' });
         this.lata.setInteractive({ cursor: 'pointer' });
@@ -553,7 +565,7 @@ export class PlayGame extends Phaser.Scene{
                         this.destruirVidas();
                         this.vermelho.destroy();
                         this.lataAtivo = false;
-                        this.txtMensagem = this.add.text(250, 140, 'ERROU ESSE É O ROXO', {fontSize: '30px', fill:'violet'});
+                        this.txtMensagem = this.add.text(this.txtMensagemPosicaoX, this.txtMensagemPosicaoY, 'ERROU ESSE É O ROXO', {fontSize: this.txtMensagemTamanhoFonte, fontStyle: this.txtMensagemEstiloFonte, fill:'violet'});
                         this.lata = this.add.image(600, 500, 'lata').setOrigin(0,0);
                         this.pontos = this.pontos-10;
                         this.txtPontos.text = this.pontos;
@@ -565,7 +577,7 @@ export class PlayGame extends Phaser.Scene{
                         this.destruirVidas();
                         this.vermelho.destroy();
                         this.lataAtivo = false;
-                        this.txtMensagem = this.add.text(250, 140, 'ERROU ESSE É O LARANJA', {fontSize: '30px', fill:'orange'});
+                        this.txtMensagem = this.add.text(this.txtMensagemPosicaoX, this.txtMensagemPosicaoY, 'ERROU ESSE É O LARANJA', {fontSize: this.txtMensagemTamanhoFonte, fontStyle: this.txtMensagemEstiloFonte, fill:'orange'});
                         this.lata = this.add.image(600, 500, 'lata').setOrigin(0,0);
                         this.pontos = this.pontos-10;
                         this.txtPontos.text = this.pontos;
@@ -582,7 +594,7 @@ export class PlayGame extends Phaser.Scene{
     }
 
     nivel2Fase2(){
-        this.txtEnunciado = this.add.text(200, 40, 'PINTE DE VERDE A PERA', {fontSize: '20px', fill:'green'});
+        this.txtEnunciado = this.add.text(this.enunciadoPosicaoX, this.enunciadoPosicaoY, 'PINTE DE VERDE A PERA', {fontSize: this.enunciadoTamanhoFonte, fontStyle: this.txtEnunciadoEstiloFonte, fill:'green'});
         this.peraFixa = this.add.image(300,300,"pera");
         this.pera = this.add.image(600,300,"peraBranco");
         this.pera.setInteractive({ cursor: 'pointer' });
@@ -604,7 +616,7 @@ export class PlayGame extends Phaser.Scene{
                         this.destruirVidas();
                         this.vermelho.destroy();
                         this.lataAtivo = false;
-                        this.txtMensagem = this.add.text(250, 140, 'ERROU ESSE É O ROXO', {fontSize: '30px', fill:'violet'});
+                        this.txtMensagem = this.add.text(this.txtMensagemPosicaoX, this.txtMensagemPosicaoY, 'ERROU ESSE É O ROXO', {fontSize: this.txtMensagemTamanhoFonte, fontStyle: this.txtMensagemEstiloFonte, fill:'violet'});
                         this.lata = this.add.image(600, 500, 'lata').setOrigin(0,0);
                         this.pontos = this.pontos-10;
                         this.txtPontos.text = this.pontos;
@@ -615,7 +627,7 @@ export class PlayGame extends Phaser.Scene{
                         this.destruirVidas();
                         this.vermelho.destroy();
                         this.lataAtivo = false;
-                        this.txtMensagem = this.add.text(250, 140, 'ERROU ESSE É O LARANJA', {fontSize: '30px', fill:'orange'});
+                        this.txtMensagem = this.add.text(this.txtMensagemPosicaoX, this.txtMensagemPosicaoY, 'ERROU ESSE É O LARANJA', {fontSize: this.txtMensagemTamanhoFonte, fontStyle: this.txtMensagemEstiloFonte, fill:'orange'});
                         this.lata = this.add.image(600, 500, 'lata').setOrigin(0,0);
                         this.pontos = this.pontos-10;
                         this.txtPontos.text = this.pontos;
@@ -631,7 +643,7 @@ export class PlayGame extends Phaser.Scene{
 
     }
     nivel3Fase2(){
-        this.txtEnunciado = this.add.text(200, 40, 'PINTE DE ROXO A UVA', {fontSize: '20px', fill:'violet'});
+        this.txtEnunciado = this.add.text(this.enunciadoPosicaoX, this.enunciadoPosicaoY, 'PINTE DE ROXO A UVA', {fontSize: this.enunciadoTamanhoFonte, fontStyle: this.txtEnunciadoEstiloFonte, fill:'violet'});
         this.uvaFixa = this.add.image(300,300,"uva");
         this.uva = this.add.image(600,300,"uvaBranco");
         this.uva.setInteractive({ cursor: 'pointer' });
@@ -648,7 +660,7 @@ export class PlayGame extends Phaser.Scene{
                     this.destruirVidas();
                     this.amarelo.destroy();
                     this.lataAtivo = false;
-                    this.txtMensagem = this.add.text(250, 140, 'ERROU ESSE É O VERDE', {fontSize: '30px', fill:'green'});
+                    this.txtMensagem = this.add.text(this.txtMensagemPosicaoX, this.txtMensagemPosicaoY, 'ERROU ESSE É O VERDE', {fontSize: this.txtMensagemTamanhoFonte, fontStyle: this.txtMensagemEstiloFonte, fill:'green'});
                     this.lata = this.add.image(600, 500, 'lata').setOrigin(0,0);
                     this.pontos = this.pontos-10;
                     this.txtPontos.text = this.pontos;
@@ -665,7 +677,7 @@ export class PlayGame extends Phaser.Scene{
                         this.destruirVidas();
                         this.amarelo.destroy();
                         this.lataAtivo = false;
-                        this.txtMensagem = this.add.text(250, 140, 'ERROU ESSE É O LARANJA', {fontSize: '30px', fill:'orange'});
+                        this.txtMensagem = this.add.text(this.txtMensagemPosicaoX, this.txtMensagemPosicaoY, 'ERROU ESSE É O LARANJA', {fontSize: this.txtMensagemTamanhoFonte, fontStyle: this.txtMensagemEstiloFonte, fill:'orange'});
                         this.lata = this.add.image(600, 500, 'lata').setOrigin(0,0);
                         this.pontos = this.pontos-10;
                         this.txtPontos.text = this.pontos;
@@ -681,7 +693,7 @@ export class PlayGame extends Phaser.Scene{
 
     }
     nivel4Fase2(){
-        this.txtEnunciado = this.add.text(200, 40, 'PINTE DE LARANJA A LARANJA', {fontSize: '20px', fill:'orange'});
+        this.txtEnunciado = this.add.text(this.enunciadoPosicaoX, this.enunciadoPosicaoY, 'PINTE DE LARANJA A LARANJA', {fontSize: this.enunciadoTamanhoFonte, fontStyle: this.txtEnunciadoEstiloFonte, fill:'orange'});
         this.laranjaFixa = this.add.image(300,300,"laranja");
         this.laranja = this.add.image(600,300,"laranjaBranco");
         this.laranja.setInteractive({ cursor: 'pointer' });
@@ -698,7 +710,7 @@ export class PlayGame extends Phaser.Scene{
                     this.destruirVidas();
                     this.azul.destroy();
                     this.lataAtivo = false;
-                    this.txtMensagem = this.add.text(250, 140, 'ERROU ESSE É O VERDE', {fontSize: '30px', fill:'green'});
+                    this.txtMensagem = this.add.text(this.txtMensagemPosicaoX, this.txtMensagemPosicaoY, 'ERROU ESSE É O VERDE', {fontSize: this.txtMensagemTamanhoFonte, fontStyle: this.txtMensagemEstiloFonte, fill:'green'});
                     this.lata = this.add.image(600, 500, 'lata').setOrigin(0,0);
                     this.pontos = this.pontos-10;
                     this.txtPontos.text = this.pontos;
@@ -710,7 +722,7 @@ export class PlayGame extends Phaser.Scene{
                         this.destruirVidas();
            //             this.vermelho.destroy();
                         this.lataAtivo = false;
-                        this.txtMensagem = this.add.text(250, 140, 'ERROU ESSE É O ROXO', {fontSize: '30px', fill:'green'});
+                        this.txtMensagem = this.add.text(this.txtMensagemPosicaoX, this.txtMensagemPosicaoY, 'ERROU ESSE É O ROXO', {fontSize: this.txtMensagemTamanhoFonte, fontStyle: this.txtMensagemEstiloFonte, fill:'violet'});
                         this.lata = this.add.image(600, 500, 'lata').setOrigin(0,0);
                         this.pontos = this.pontos-10;
                         this.txtPontos.text = this.pontos;
@@ -739,7 +751,7 @@ export class PlayGame extends Phaser.Scene{
                         }
 
                         this.fase2Completa =true;
-                        this.txtMensagem = this.add.text(250, 140, 'ACERTOU!', {fontSize: '30px', fill:'red'});
+                        this.txtMensagem = this.add.text(this.txtMensagemPosicaoX, this.txtMensagemPosicaoY, 'ACERTOU!', {fontSize: this.txtMensagemTamanhoFonte, fontStyle: this.txtMensagemEstiloFonte, fill:'red'});
                 
 
                 setTimeout(() => { this.scene.start('PhaseComplete'); }, 3000);
