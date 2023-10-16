@@ -29,9 +29,21 @@ export class StartGame extends Phaser.Scene{
     }
 
     preload(){
-        //MUSIC
-    //    this.load.audio("menuMusic", "src/assets/music.mp3");
+        //sound
+        //feedback
+        this.load.audio("acertouParabens", "src/assets/acertouParabens.mp3");
+        //fase1
+        this.load.audio("enunciado1Fase1", "src/assets/enunciado1Fase1.mp3");
+        this.load.audio("enunciado2Fase1", "src/assets/enunciado2Fase1.mp3");
+        this.load.audio("enunciado3Fase1", "src/assets/enunciado3Fase1.mp3");
+        this.load.audio("enunciado4Fase1", "src/assets/enunciado4Fase1.mp3");
+        //fase2
+        this.load.audio("enunciado1Fase2", "src/assets/enunciado1Fase2.mp3");
+        this.load.audio("enunciado2Fase2", "src/assets/enunciado2Fase2.mp3");
+        this.load.audio("enunciado3Fase2", "src/assets/enunciado3Fase2.mp3");
+        this.load.audio("enunciado4Fase2", "src/assets/enunciado4Fase2.mp3");
         //menu
+        this.load.image("btnSom", "src/assets/btnSom.png");
         this.load.image("btnFase1", "src/assets/fase1.png");
         this.load.image("btnFase2", "src/assets/fase2.png");
         this.load.image("btnCreditos", "src/assets/creditos.png");

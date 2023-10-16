@@ -25,9 +25,13 @@ export class PlayGame extends Phaser.Scene{
 
         this.quadradoMetadeVermelho;
         this.quadradoMetadeVerde;
- 
+        
+        //feedback
+        this.acertouParabens;
 
         //enunciado 
+        this.somEnunciado;
+        this.btnSom;
         this.txtEnunciado;
         this.enunciadoPosicaoX = 200;
         this.enunciadoPosicaoY = 60;
@@ -99,7 +103,10 @@ export class PlayGame extends Phaser.Scene{
         this.vermelho = this.add.image(150, 530, 'vermelho').setOrigin(0,0);
         this.azul = this.add.image(300, 530, 'azul').setOrigin(0,0);
         this.amarelo = this.add.image(450, 530, 'amarelo').setOrigin(0,0);
-        
+        this.btnSom = this.add.image(80, 600, 'btnSom');
+        this.btnSom.setInteractive({ cursor: 'pointer' });
+        this.acertouParabens = this.sound.add('acertouParabens');
+
         this.vermelhoFX = this.vermelho.preFX.addShine(2,2,5,0);
         this.amareloFX = this.amarelo.preFX.addShine(2,2,5,0);
         this.azulFX = this.azul.preFX.addShine(2,2,5,0);
@@ -191,16 +198,40 @@ export class PlayGame extends Phaser.Scene{
         
         
     }
-
+    lerEnunciado(){
+             this.somEnunciado.play();
+        this.btnSom.on("pointerdown", ()=> {
+             this.somEnunciado.play();
+        });
+    }
     venceuNivel(){
         this.destruirMensagem();
         this.atribuirPontosLevel();
+        this.acertouParabens.play();
         this.txtMensagem = this.add.text(this.txtMensagemPosicaoX, this.txtMensagemPosicaoY, 'ACERTOU!', {fontSize: this.txtMensagemTamanhoFonte, fontStyle: this.txtMensagemEstiloFonte, fill:'red'});
         this.vermelho.destroy();
         this.azul.destroy();
         this.amarelo.destroy();
         this.contador.paused = !this.contador.paused;
         setTimeout(() => { this.scene.start('Transition'); }, 3000);
+    }
+
+    venceuUltimoNivel(){
+        this.acertouParabens.play();
+           //acertar o ultimo nivel da fase 1 ou 2 sem errar da +20 pontos extras pra fechar 500
+           if(this.vidas == 3){
+            this.pontos += 40;
+        }
+
+        if(this.txtTempo.text >100){
+            this.pontos += 100;
+        }else if(this.txtTempo.text>60){
+            this.pontos+=80;
+        }else if(this.txtTempo.text>10){
+            this.pontos+=50;
+        }
+        this.txtMensagem = this.add.text(this.txtMensagemPosicaoX, this.txtMensagemPosicaoY, 'ACERTOU!', {fontSize: this.txtMensagemTamanhoFonte, fontStyle: this.txtMensagemEstiloFonte, fill:'red'});
+
     }
 
     destruirVidas(){
@@ -376,10 +407,13 @@ export class PlayGame extends Phaser.Scene{
     }
 
     nivel1(){
+        this.somEnunciado = this.sound.add('enunciado1Fase1');
+        this.lerEnunciado();
         this.txtEnunciado = this.add.text(this.enunciadoPosicaoX, this.enunciadoPosicaoY, 'PINTE DE VERMELHO A METADE QUE FALTA DO QUADRADO', {fontSize: this.enunciadoTamanhoFonte, fontStyle: this.txtEnunciadoEstiloFonte, fill:'red'});
         this.quadradoMetadeVermelho = this.add.image(400,300,"quadradoMetadeVermelho");
         this.quadradoMetadeVermelho.setInteractive({ cursor: 'pointer' });
         this.desativarCoresBola();
+        
         this.selecionarCor();
 
         this.quadradoMetadeVermelho.on("pointerdown", ()=>{
@@ -412,6 +446,8 @@ export class PlayGame extends Phaser.Scene{
     }
 
     nivel2(){
+        this.somEnunciado = this.sound.add('enunciado2Fase1');
+        this.lerEnunciado();
         this.txtEnunciado = this.add.text(this.enunciadoPosicaoX, this.enunciadoPosicaoY, 'PINTE DE AZUL O QUADRADO', {fontSize: this.enunciadoTamanhoFonte, fontStyle: this.txtEnunciadoEstiloFonte, fill:'blue'});
         this.quadradoMetadeVermelho.destroy();
         this.quadradoBranco = this.add.image(400,300,"quadradoBranco");
@@ -448,7 +484,9 @@ export class PlayGame extends Phaser.Scene{
     }
     
     nivel3(){
-        this.txtEnunciado = this.add.text(this.enunciadoPosicaoX, this.enunciadoPosicaoY, 'PINTE DE VERMELHO A METADE QUE FALTA DA MAÇA', {fontSize: this.enunciadoTamanhoFonte, fontStyle: this.txtEnunciadoEstiloFonte,  fill:'red'});
+        this.somEnunciado = this.sound.add('enunciado3Fase1');
+        this.lerEnunciado();
+        this.txtEnunciado = this.add.text(this.enunciadoPosicaoX, this.enunciadoPosicaoY, 'PINTE A OUTRA METADE DA MAÇÃ', {fontSize: this.enunciadoTamanhoFonte, fontStyle: this.txtEnunciadoEstiloFonte,  fill:'red'});
         this.maca = this.add.image(400,300,"macaMetadeBranca");
         this.maca.setInteractive({ cursor: 'pointer' });
         this.desativarCoresBola();
@@ -484,7 +522,9 @@ export class PlayGame extends Phaser.Scene{
        
     }
     nivel4(){
-        this.txtEnunciado = this.add.text(this.enunciadoPosicaoX, this.enunciadoPosicaoY, 'PINTE A BANANA CONFORME A IMAGEM', {fontSize: this.enunciadoTamanhoFonte, fontStyle: this.txtEnunciadoEstiloFonte, fill:'yellow'});
+        this.somEnunciado = this.sound.add('enunciado4Fase1');
+        this.lerEnunciado();
+        this.txtEnunciado = this.add.text(this.enunciadoPosicaoX, this.enunciadoPosicaoY, 'PINTE A BANANA SEGUINDO A IMAGEM', {fontSize: this.enunciadoTamanhoFonte, fontStyle: this.txtEnunciadoEstiloFonte, fill:'yellow'});
         this.bananaFixa = this.add.image(300,300,"banana");
         this.banana = this.add.image(600,300,"bananaBranco");
         this.banana.setInteractive({ cursor: 'pointer' });
@@ -496,7 +536,7 @@ export class PlayGame extends Phaser.Scene{
                 this.banana = this.add.image(600,300,"bananaVermelho");
                 this.destruirMensagem();
                 this.destruirVidas();
-                this.txtMensagem = this.add.text(this.txtMensagemPosicaoX, this.txtMensagemPosicaoY, 'ERROU ESSE É O VERMELHO', {fontSize: this.txtMensagemTamanhoFonte, fill:'red'});
+                this.txtMensagem = this.add.text(this.txtMensagemPosicaoX, this.txtMensagemPosicaoY, 'ERROU ESSE É O VERMELHO', {fontSize: this.txtMensagemTamanhoFonte, fontStyle: this.txtMensagemEstiloFonte, fill:'red'});
                 this.pontos = this.pontos-10;
                 this.txtPontos.text = this.pontos;
                 this.vermelho.destroy();
@@ -518,21 +558,8 @@ export class PlayGame extends Phaser.Scene{
                 this.azul.destroy();
                 this.amarelo.destroy();
                 this.contador.paused = !this.contador.paused;
-
-                if(this.vidas == 3){
-                    this.pontos += 20;
-                }
-        
-                if(this.txtTempo.text >100){
-                    this.pontos += 100;
-                }else if(this.txtTempo.text>60){
-                    this.pontos+=80;
-                }else if(this.txtTempo.text>10){
-                    this.pontos+=50;
-                }
-
+                this.venceuUltimoNivel();
                 this.fase1Completa = true;
-                this.txtMensagem = this.add.text(this.txtMensagemPosicaoX, this.txtMensagemPosicaoY, 'ACERTOU!', {fontSize: this.txtMensagemTamanhoFonte, fontStyle: this.txtMensagemEstiloFonte, fill:'red'});
                 
 
                 setTimeout(() => { this.scene.start('PhaseComplete'); }, 3000);
@@ -542,7 +569,9 @@ export class PlayGame extends Phaser.Scene{
      
     }
     nivel1Fase2(){
-        this.txtEnunciado = this.add.text(this.enunciadoPosicaoX, this.enunciadoPosicaoY, 'PINTE DE VERDE A METADE QUE FALTA DO QUADRADO', {fontSize: this.enunciadoTamanhoFonte, fontStyle: this.txtEnunciadoEstiloFonte, fill:'green'});
+        this.somEnunciado = this.sound.add('enunciado1Fase2');
+        this.lerEnunciado();
+        this.txtEnunciado = this.add.text(this.enunciadoPosicaoX, this.enunciadoPosicaoY, 'PINTE DE VERDE A METADE DO QUADRADO', {fontSize: this.enunciadoTamanhoFonte, fontStyle: this.txtEnunciadoEstiloFonte, fill:'green'});
         this.quadradoMetadeVerde = this.add.image(400,300,"quadradoMetadeVerde");
         this.quadradoMetadeVerde.setInteractive({ cursor: 'pointer' });
         this.lata.setInteractive({ cursor: 'pointer' });
@@ -594,7 +623,9 @@ export class PlayGame extends Phaser.Scene{
     }
 
     nivel2Fase2(){
-        this.txtEnunciado = this.add.text(this.enunciadoPosicaoX, this.enunciadoPosicaoY, 'PINTE DE VERDE A PERA', {fontSize: this.enunciadoTamanhoFonte, fontStyle: this.txtEnunciadoEstiloFonte, fill:'green'});
+        this.somEnunciado = this.sound.add('enunciado2Fase2');
+        this.lerEnunciado();
+        this.txtEnunciado = this.add.text(this.enunciadoPosicaoX, this.enunciadoPosicaoY, 'PINTE A PERA SEGUINDO A IMAGEM', {fontSize: this.enunciadoTamanhoFonte, fontStyle: this.txtEnunciadoEstiloFonte, fill:'green'});
         this.peraFixa = this.add.image(300,300,"pera");
         this.pera = this.add.image(600,300,"peraBranco");
         this.pera.setInteractive({ cursor: 'pointer' });
@@ -643,7 +674,9 @@ export class PlayGame extends Phaser.Scene{
 
     }
     nivel3Fase2(){
-        this.txtEnunciado = this.add.text(this.enunciadoPosicaoX, this.enunciadoPosicaoY, 'PINTE DE ROXO A UVA', {fontSize: this.enunciadoTamanhoFonte, fontStyle: this.txtEnunciadoEstiloFonte, fill:'violet'});
+        this.somEnunciado = this.sound.add('enunciado3Fase2');
+        this.lerEnunciado();
+        this.txtEnunciado = this.add.text(this.enunciadoPosicaoX, this.enunciadoPosicaoY, 'PINTE A UVA SEGUINDO A IMAGEM', {fontSize: this.enunciadoTamanhoFonte, fontStyle: this.txtEnunciadoEstiloFonte, fill:'violet'});
         this.uvaFixa = this.add.image(300,300,"uva");
         this.uva = this.add.image(600,300,"uvaBranco");
         this.uva.setInteractive({ cursor: 'pointer' });
@@ -693,7 +726,9 @@ export class PlayGame extends Phaser.Scene{
 
     }
     nivel4Fase2(){
-        this.txtEnunciado = this.add.text(this.enunciadoPosicaoX, this.enunciadoPosicaoY, 'PINTE DE LARANJA A LARANJA', {fontSize: this.enunciadoTamanhoFonte, fontStyle: this.txtEnunciadoEstiloFonte, fill:'orange'});
+        this.somEnunciado = this.sound.add('enunciado4Fase2');
+        this.lerEnunciado();
+        this.txtEnunciado = this.add.text(this.enunciadoPosicaoX, this.enunciadoPosicaoY, 'PINTE A LARANJA SEGUINDO A IMAGEM', {fontSize: this.enunciadoTamanhoFonte, fontStyle: this.txtEnunciadoEstiloFonte, fill:'orange'});
         this.laranjaFixa = this.add.image(300,300,"laranja");
         this.laranja = this.add.image(600,300,"laranjaBranco");
         this.laranja.setInteractive({ cursor: 'pointer' });
@@ -737,21 +772,10 @@ export class PlayGame extends Phaser.Scene{
                         this.amarelo.destroy();
                      //   this.lata.destroy();
                         this.contador.paused = !this.contador.paused;
-                       
-                        if(this.vidas == 3){
-                            this.pontos += 20;
-                        }
-                
-                        if(this.txtTempo.text >100){
-                            this.pontos += 100;
-                        }else if(this.txtTempo.text>60){
-                            this.pontos+=80;
-                        }else if(this.txtTempo.text>10){
-                            this.pontos+=50;
-                        }
+                        this.venceuUltimoNivel();
 
                         this.fase2Completa =true;
-                        this.txtMensagem = this.add.text(this.txtMensagemPosicaoX, this.txtMensagemPosicaoY, 'ACERTOU!', {fontSize: this.txtMensagemTamanhoFonte, fontStyle: this.txtMensagemEstiloFonte, fill:'red'});
+                       
                 
 
                 setTimeout(() => { this.scene.start('PhaseComplete'); }, 3000);
