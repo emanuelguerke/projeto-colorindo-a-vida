@@ -213,8 +213,11 @@ window.onload = function()
         type: Phaser.WEBGL,
         width:800,
         height:720,
-       
-        autoCenter:Phaser.Scale.CENTER_BOTH,
+        scale: {
+        mode: Phaser.Scale.FIT,
+        autoCenter:Phaser.Scale.CENTER_BOTH
+        },
+
            
         backgroundColor: '#d3d3d3',
         scene:[StartGame, Menu, PlayGame, Transition, PhaseComplete, Teacher, Criteria, Ranking, Credits, EndGame]
