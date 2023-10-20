@@ -89,12 +89,11 @@ export class PlayGame extends Phaser.Scene{
     }
 
     preload(){
-      
+    
         
     }
 
     create(){
-        
       
 
         this.vidas=3;

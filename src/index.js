@@ -1,4 +1,6 @@
 import Phaser from 'phaser';
+import '@babel/polyfill'
+
 import {Menu} from './menu.js';
 import {PlayGame} from './playGame.js';
 
@@ -8,6 +10,7 @@ import {Teacher} from './teacher.js'
 import {Criteria} from './criteria.js'
 import {Ranking} from './ranking.js'
 import {Credits} from './credits.js'
+import { Tutorial } from './tutorial.js';
 import {EndGame} from './endGame.js'
 
 
@@ -114,7 +117,9 @@ export class StartGame extends Phaser.Scene{
         //EndGame
     //    this.load.image("btnVoltar", "src/assets/voltar.png");
         //
-
+      //tutorial video
+      this.load.video('tutorialFase1', 'src/assets/tutorialFase1.webm', true);
+      this.load.video('tutorialFase2', 'src/assets/tutorialFase2.webm', true);
 
     }
 
@@ -210,17 +215,22 @@ window.onload = function()
 {
     let gameConfig = 
     {
-        type: Phaser.WEBGL,
+        type: Phaser.AUTO,
+        resolution: 3,
+        scale: {
+        parent: 'phaser-game',
+        mode: Phaser.Scale.FIT,
+        autoCenter: Phaser.Scale.CENTER_BOTH,
         width:800,
         height:720,
-        scale: {
-        mode: Phaser.Scale.FIT,
-        autoCenter:Phaser.Scale.CENTER_BOTH
+       
+       
         },
+        
 
            
         backgroundColor: '#d3d3d3',
-        scene:[StartGame, Menu, PlayGame, Transition, PhaseComplete, Teacher, Criteria, Ranking, Credits, EndGame]
+        scene:[StartGame, Menu, Tutorial, PlayGame, Transition, PhaseComplete, Teacher, Criteria, Ranking, Credits, EndGame]
     };
     this.game = new Phaser.Game(gameConfig);
 

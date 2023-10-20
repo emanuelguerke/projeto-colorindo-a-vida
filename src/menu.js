@@ -33,7 +33,7 @@ export class Menu extends Phaser.Scene{
             game.scene.keys["PlayGame"].faseAtual =1;
             game.scene.keys["PlayGame"].nivel = 1;
             game.scene.keys["PlayGame"].pontos = 0;
-            this.scene.start('PlayGame');
+            this.scene.start('Tutorial');
         });
         this.btnFase1.on('pointerover',this.passouPorCima);
         this.btnFase1.on('pointerout', this.saiuDeCima);
@@ -45,7 +45,7 @@ export class Menu extends Phaser.Scene{
             game.scene.keys["PlayGame"].faseAtual =2;
             game.scene.keys["PlayGame"].nivel = 1;
             game.scene.keys["PlayGame"].pontos = 0;
-            this.scene.start('PlayGame');
+            this.scene.start('Tutorial');
             });
             this.btnFase2.on('pointerover',this.passouPorCima);
             this.btnFase2.on('pointerout', this.saiuDeCima);

@@ -37,7 +37,7 @@ export class PhaseComplete extends Phaser.Scene{
                 game.scene.keys["PlayGame"].faseAtual =2;
                 game.scene.keys["PlayGame"].nivel = 1;
                 game.scene.keys["PlayGame"].pontos = 0;
-                this.scene.start('PlayGame');
+                this.scene.start('Tutorial');
             }else if(game.scene.keys["PlayGame"].faseAtual == 2){
                 const score = {name: game.scene.keys["StartGame"].nome,  pontuacaofase1:  this.pontuacaoFase1, pontuacaofase2:  this.pontuacaoFase2};
                 const scores = JSON.parse(localStorage.getItem("scores")) || [];
