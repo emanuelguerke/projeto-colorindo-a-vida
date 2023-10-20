@@ -130,7 +130,7 @@ export class StartGame extends Phaser.Scene{
     create(){
         console.log(`The viewport's width is ${this.width} and the height is ${this.height}.`);
         console.log(this.isMobile);
-        if(this.isMobile){
+        if(this.isMobile && !this.logado){
             this.nome = prompt('Digite seu nome');
             screen.orientation.lock("landscape-primary");
 
