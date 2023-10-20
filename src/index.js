@@ -29,6 +29,10 @@ export class StartGame extends Phaser.Scene{
         this.menuMusic;
         this.game;
         this.logado=false;
+        this.width = window.innerWidth;
+        this.height = window.innerHeight;
+        this.modo;
+        this.isMobile = navigator.userAgentData.mobile;
     }
 
     preload(){
@@ -124,7 +128,15 @@ export class StartGame extends Phaser.Scene{
     }
 
     create(){
-       
+        console.log(`The viewport's width is ${this.width} and the height is ${this.height}.`);
+        console.log(this.isMobile);
+        if(this.isMobile){
+            this.nome = prompt('Digite seu nome');
+            screen.orientation.lock("landscape-primary");
+
+            this.nomeJogador = this.nome;
+            this.logado= true;
+        }
    //     this.menuMusic = this.sound.add('menuMusic');
    //     this.menuMusic.play();
         this.add.text(180, 150,"NOME DO JOGADOR",  {fontSize: '50px', fontStyle: 'bold',fill:'white'});
@@ -199,7 +211,7 @@ export class StartGame extends Phaser.Scene{
         
 
     }
-
+   
     passouPorCima(event){
             console.log("passou por cima")
             this.setTint(0xff0000);
@@ -217,18 +229,13 @@ window.onload = function()
     {
         type: Phaser.AUTO,
         resolution: 3,
-        scale: {
-        parent: 'phaser-game',
-        mode: Phaser.Scale.FIT,
-        autoCenter: Phaser.Scale.CENTER_BOTH,
         width:800,
         height:720,
-       
-       
+        scale: {
+        parent: 'phaser-game',
+        autoCenter: Phaser.Scale.CENTER_BOTH,
+        mode: Phaser.Scale.NONE,
         },
-        
-
-           
         backgroundColor: '#d3d3d3',
         scene:[StartGame, Menu, Tutorial, PlayGame, Transition, PhaseComplete, Teacher, Criteria, Ranking, Credits, EndGame]
     };
