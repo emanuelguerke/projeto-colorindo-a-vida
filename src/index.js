@@ -49,6 +49,11 @@ export class StartGame extends Phaser.Scene{
         this.load.audio("enunciado2Fase2", "src/assets/enunciado2Fase2.mp3");
         this.load.audio("enunciado3Fase2", "src/assets/enunciado3Fase2.mp3");
         this.load.audio("enunciado4Fase2", "src/assets/enunciado4Fase2.mp3");
+        //tutorial video
+        this.load.video('tutorialFase1', 'src/assets/tutorialFase1.webm', true);
+        this.load.video('tutorialFase2', 'src/assets/tutorialFase2.webm', true);
+        //Tutorial som
+        this.load.audio("cliqueParaJogar", "src/assets/cliqueParaJogar.mp3");
         //menu
         this.load.image("btnSom", "src/assets/btnSom.png");
         this.load.image("btnFase1", "src/assets/fase1.png");
@@ -121,9 +126,7 @@ export class StartGame extends Phaser.Scene{
         //EndGame
     //    this.load.image("btnVoltar", "src/assets/voltar.png");
         //
-      //tutorial video
-      this.load.video('tutorialFase1', 'src/assets/tutorialFase1.webm', true);
-      this.load.video('tutorialFase2', 'src/assets/tutorialFase2.webm', true);
+      
 
     }
 
