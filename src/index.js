@@ -123,6 +123,8 @@ export class StartGame extends Phaser.Scene{
         this.load.image('laranjaBranco','src/assets/laranjaBranco.png');
         this.load.image('laranjaVerde','src/assets/laranjaVerde.png');
         this.load.image('laranjaRoxo','src/assets/laranjaRoxo.png');
+        //phaseComplete
+        this.load.image('parabens','src/assets/parabens.png');
         //EndGame
     //    this.load.image("btnVoltar", "src/assets/voltar.png");
         //
@@ -157,6 +159,9 @@ export class StartGame extends Phaser.Scene{
             //provisório até colococar algum banco de dados pra administrar a sessão
             game.scene.keys["PlayGame"].fase1Completa= false;
             game.scene.keys["PlayGame"].fase2Completa=false;
+            game.scene.keys["PlayGame"].faseAtual=1;
+            game.scene.keys["PlayGame"].nivel = 1;
+            game.scene.keys["PlayGame"].pontos = 0;
             this.scene.start('StartGame');
             //this.nomeJogador.destroy();
         

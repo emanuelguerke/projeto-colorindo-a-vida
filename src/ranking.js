@@ -18,7 +18,13 @@ export class Ranking extends Phaser.Scene{
         this.textoFase1 = this.add.text(350, 180, "FASE 1", {fontSize: '30px', fontStyle: 'bold',fill:'black'});
         this.textoFase2 = this.add.text(550, 180, "FASE 2", {fontSize: '30px', fontStyle: 'bold',fill:'black'});
         this.textoFase2 = this.add.text(700, 180, "TOTAL", {fontSize: '30px', fontStyle: 'bold',fill:'black'});
-  
+        this.add.rectangle(650, 10, 450, 40, 0xFFFFFF);
+        this.limparRanking = this.add.text(450, 10, "CLIQUE AQUI PARA DELETAR TODO RANKING", {fontSize: '15px', fontStyle: 'bold',fill:'black'});
+        this.limparRanking.setInteractive({ cursor: 'pointer' });
+        this.limparRanking.on("pointerdown", ()=>{
+            localStorage.clear();
+            this.scene.start('Ranking');
+        } );
 
   
       var space = 30;

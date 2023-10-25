@@ -3,7 +3,7 @@ export class PhaseComplete extends Phaser.Scene{
     constructor(){
         super("PhaseComplete");
         this.continuar;
-        this.lata;
+        this.parabens;
         this.btnVoltar;
         this.pontuacaoFase1;
         this.pontuacaoFase2;
@@ -28,7 +28,7 @@ export class PhaseComplete extends Phaser.Scene{
         
        // game.scene.keys["StartGame"].fase1Completa = true;
       //  game.scene.keys["PlayGame"].nivel++;
-        this.lata =this.add.image(300,300,"lata").setOrigin(0,0);
+        this.parabens =this.add.image(300,300,"parabens").setOrigin(0,0);
         this.continuar =this.add.image(250,500,"continuar").setOrigin(0,0);
         this.continuar.setInteractive();
 
@@ -43,6 +43,8 @@ export class PhaseComplete extends Phaser.Scene{
                 const scores = JSON.parse(localStorage.getItem("scores")) || [];
                 scores.push(score);
                 localStorage.setItem("scores", JSON.stringify(scores));
+                game.scene.keys["PlayGame"].nivel = 1;
+                game.scene.keys["PlayGame"].pontos = 0;
                 this.scene.start('Menu');
             }
             
@@ -53,7 +55,12 @@ export class PhaseComplete extends Phaser.Scene{
         
         this.btnVoltar = this.add.image(40,40,"btnVoltar");
         this.btnVoltar.setInteractive({ cursor: 'pointer' });
-        this.btnVoltar.on("pointerdown", ()=> this.scene.start('Menu'));
+        this.btnVoltar.on("pointerdown", ()=> {     
+            game.scene.keys["PlayGame"].nivel = 1;
+            game.scene.keys["PlayGame"].pontos = 0;
+            this.scene.start('Menu');
+    })
+       
 
     }
     passouPorCima(event){

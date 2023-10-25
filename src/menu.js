@@ -30,10 +30,17 @@ export class Menu extends Phaser.Scene{
         this.btnVoltar.setInteractive({ cursor: 'pointer' });
 
         this.btnFase1.on("pointerdown", ()=> {
-            game.scene.keys["PlayGame"].faseAtual =1;
-            game.scene.keys["PlayGame"].nivel = 1;
-            game.scene.keys["PlayGame"].pontos = 0;
-            this.scene.start('Tutorial');
+            if(game.scene.keys["PlayGame"].faseAtual == 2){
+                game.scene.keys["PlayGame"].nivel = 1;
+                game.scene.keys["PlayGame"].pontos = 0;
+                game.scene.keys["PlayGame"].faseAtual = 1;
+            }
+
+            if(game.scene.keys["PlayGame"].nivel == 1){
+                this.scene.start('Tutorial');
+            }else{
+                this.scene.start('PlayGame'); 
+            }
         });
         this.btnFase1.on('pointerover',this.passouPorCima);
         this.btnFase1.on('pointerout', this.saiuDeCima);
@@ -42,10 +49,16 @@ export class Menu extends Phaser.Scene{
         {
             this.btnFase2.setInteractive({ cursor: 'pointer' });
             this.btnFase2.on("pointerdown", ()=> {
-            game.scene.keys["PlayGame"].faseAtual =2;
-            game.scene.keys["PlayGame"].nivel = 1;
-            game.scene.keys["PlayGame"].pontos = 0;
-            this.scene.start('Tutorial');
+            if(game.scene.keys["PlayGame"].faseAtual == 1){
+                game.scene.keys["PlayGame"].nivel = 1;
+                game.scene.keys["PlayGame"].pontos = 0;
+                game.scene.keys["PlayGame"].faseAtual = 2;
+            }
+            if(game.scene.keys["PlayGame"].nivel == 1){
+                this.scene.start('Tutorial');
+            }else{
+                this.scene.start('PlayGame'); 
+            }
             });
             this.btnFase2.on('pointerover',this.passouPorCima);
             this.btnFase2.on('pointerout', this.saiuDeCima);

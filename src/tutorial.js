@@ -12,13 +12,13 @@ export class Tutorial extends Phaser.Scene{
     }
     create(){
         if(game.scene.keys["PlayGame"].faseAtual == 1){
-            this.tempoDeEsperaTutorial = 7000;
+            this.tempoDeEsperaTutorial = 8000;
             this.tutorial = this.add.video(400, 360, 'tutorialFase1');
             this.tutorial.play(true);
          //   this.tutorial.setInteractive({ cursor: 'pointer' });
          //   this.tutorial.on("pointerdown", ()=> this.scene.start('PlayGame'));
         }else if(game.scene.keys["PlayGame"].faseAtual == 2){
-            this.tempoDeEsperaTutorial = 11000;
+            this.tempoDeEsperaTutorial = 12000;
             this.tutorial = this.add.video(400, 360, 'tutorialFase2');
             this.tutorial.play(true);
         //    this.tutorial.setInteractive({ cursor: 'pointer' });

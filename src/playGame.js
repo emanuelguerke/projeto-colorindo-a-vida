@@ -5,12 +5,12 @@ export class PlayGame extends Phaser.Scene{
         this.txtPontos;
         this.txtVidas;
         this.txtNome;
-        this.pontos = 100;
+        this.pontos = 0;
         this.vidas = 3;
-
+        this.btnVoltar;
         this.musica;
         this.som;
-        this.faseAtual;
+        this.faseAtual=1;
         this.nivel=1;
         this.txtNivel;
         this.tempo=120;
@@ -97,7 +97,10 @@ export class PlayGame extends Phaser.Scene{
       
 
         this.vidas=3;
-          
+        this.btnVoltar = this.add.image(30,300,"btnVoltar");
+        this.btnVoltar.setInteractive({ cursor: 'pointer' });
+        this.btnVoltar.on("pointerdown", ()=> this.scene.start('Menu'));
+
         this.baseBranca = this.add.rectangle(0, 490, 800, 200, 0xFFFFFF).setOrigin(0,0);
         this.vermelho = this.add.image(150, 530, 'vermelho').setOrigin(0,0);
         this.azul = this.add.image(300, 530, 'azul').setOrigin(0,0);
@@ -559,7 +562,6 @@ export class PlayGame extends Phaser.Scene{
                 this.contador.paused = !this.contador.paused;
                 this.venceuUltimoNivel();
                 this.fase1Completa = true;
-                
 
                 setTimeout(() => { this.scene.start('PhaseComplete'); }, 3000);
             }
@@ -772,7 +774,7 @@ export class PlayGame extends Phaser.Scene{
                      //   this.lata.destroy();
                         this.contador.paused = !this.contador.paused;
                         this.venceuUltimoNivel();
-
+                      
                         this.fase2Completa =true;
                        
                 
