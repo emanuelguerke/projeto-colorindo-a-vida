@@ -13,7 +13,7 @@ export class PlayGame extends Phaser.Scene{
         this.faseAtual=1;
         this.nivel=1;
         this.txtNivel;
-        this.tempo=120;
+        this.tempo=180;
         this.txtTempo;
         this.contador;
 
@@ -140,6 +140,7 @@ export class PlayGame extends Phaser.Scene{
         this.txtTempo = this.add.text(430, this.baseBranca.y-480,this.tempo, {fontSize: '30px', fontStyle: 'bold', fill:'green'});
         
         this.contador = this.time.addEvent({delay:1000, repeat: this.tempo});
+       
 
      //fase 1   
     if(this.faseAtual == 1){
@@ -197,7 +198,9 @@ export class PlayGame extends Phaser.Scene{
     }
     update(){
         this.txtTempo.text = this.contador.repeatCount;
-        
+        if(this.txtTempo.text < 1){
+            this.scene.start('EndGame');
+        }
         
     }
     lerEnunciado(){
@@ -225,11 +228,11 @@ export class PlayGame extends Phaser.Scene{
             this.pontos += 40;
         }
 
-        if(this.txtTempo.text >100){
+        if(this.txtTempo.text >=120){
             this.pontos += 100;
-        }else if(this.txtTempo.text>60){
+        }else if(this.txtTempo.text>=60){
             this.pontos+=80;
-        }else if(this.txtTempo.text>10){
+        }else if(this.txtTempo.text>=1){
             this.pontos+=50;
         }
         this.txtMensagem = this.add.text(this.txtMensagemPosicaoX, this.txtMensagemPosicaoY, 'ACERTOU!', {fontSize: this.txtMensagemTamanhoFonte, fontStyle: this.txtMensagemEstiloFonte, fill:'red'});
@@ -253,11 +256,11 @@ export class PlayGame extends Phaser.Scene{
             this.pontos += 20;
         }
 
-        if(this.txtTempo.text >100){
+        if(this.txtTempo.text >=120){
             this.pontos += 100;
-        }else if(this.txtTempo.text>60){
+        }else if(this.txtTempo.text>=60){
             this.pontos+=80;
-        }else if(this.txtTempo.text>10){
+        }else if(this.txtTempo.text>=1){
             this.pontos+=50;
         }
     }
@@ -505,7 +508,7 @@ export class PlayGame extends Phaser.Scene{
                 this.maca = this.add.image(400,300,"macaMetadeAzul");
                 this.destruirMensagem();
                 this.destruirVidas();
-                this.txtMensagem = this.add.text(this.txtMensagemPosicaoX, this.txtMensagemPosicaoY, 'ERROU ESSE É O AZUL', {fontSize: this.txtMensagemTamanhoFonte, fill:'blue'});
+                this.txtMensagem = this.add.text(this.txtMensagemPosicaoX, this.txtMensagemPosicaoY, 'ERROU ESSE É O AZUL', {fontSize: this.txtMensagemTamanhoFonte, fontStyle: this.txtEnunciadoEstiloFonte, fill:'blue'});
                 this.pontos = this.pontos-10;
                 this.txtPontos.text = this.pontos;
                 this.azul.destroy();
