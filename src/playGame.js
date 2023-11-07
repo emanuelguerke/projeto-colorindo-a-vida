@@ -16,6 +16,7 @@ export class PlayGame extends Phaser.Scene{
         this.tempo=180;
         this.txtTempo;
         this.contador;
+        this.timeoutId;
 
         this.baseBranca
         this.vermelho;
@@ -211,20 +212,23 @@ export class PlayGame extends Phaser.Scene{
     }
     venceuNivel(){
         this.destruirMensagem();
-        this.atribuirPontosLevel();
         this.acertouParabens.play();
         this.txtMensagem = this.add.text(this.txtMensagemPosicaoX, this.txtMensagemPosicaoY, 'ACERTOU!', {fontSize: this.txtMensagemTamanhoFonte, fontStyle: this.txtMensagemEstiloFonte, fill:'red'});
         this.vermelho.destroy();
         this.azul.destroy();
         this.amarelo.destroy();
         this.contador.paused = !this.contador.paused;
-        setTimeout(() => { this.scene.start('Transition'); }, 3000);
+        setTimeout(() => { 
+            if(game.scene.isActive("PlayGame")){
+                this.atribuirPontosLevel();
+                this.scene.start('Transition'); 
+            }
+        }, 3000);
     }
 
     venceuUltimoNivel(){
-        this.acertouParabens.play();
            //acertar o ultimo nivel da fase 1 ou 2 sem errar da +20 pontos extras pra fechar 500
-           if(this.vidas == 3){
+        if(this.vidas == 3){
             this.pontos += 40;
         }
 
@@ -235,7 +239,6 @@ export class PlayGame extends Phaser.Scene{
         }else if(this.txtTempo.text>=1){
             this.pontos+=50;
         }
-        this.txtMensagem = this.add.text(this.txtMensagemPosicaoX, this.txtMensagemPosicaoY, 'ACERTOU!', {fontSize: this.txtMensagemTamanhoFonte, fontStyle: this.txtMensagemEstiloFonte, fill:'red'});
 
     }
 
@@ -563,10 +566,15 @@ export class PlayGame extends Phaser.Scene{
                 this.azul.destroy();
                 this.amarelo.destroy();
                 this.contador.paused = !this.contador.paused;
-                this.venceuUltimoNivel();
                 this.fase1Completa = true;
-
-                setTimeout(() => { this.scene.start('PhaseComplete'); }, 3000);
+                this.acertouParabens.play();
+                this.txtMensagem = this.add.text(this.txtMensagemPosicaoX, this.txtMensagemPosicaoY, 'ACERTOU!', {fontSize: this.txtMensagemTamanhoFonte, fontStyle: this.txtMensagemEstiloFonte, fill:'red'});
+                setTimeout(() => { 
+                    if(game.scene.isActive("PlayGame")){
+                        this.venceuUltimoNivel();
+                        this.scene.start('PhaseComplete');  
+                    }
+                }, 3000);
             }
         });
 
@@ -776,13 +784,16 @@ export class PlayGame extends Phaser.Scene{
                         this.amarelo.destroy();
                      //   this.lata.destroy();
                         this.contador.paused = !this.contador.paused;
-                        this.venceuUltimoNivel();
-                      
                         this.fase2Completa =true;
-                       
-                
+                        this.acertouParabens.play();
+                        this.txtMensagem = this.add.text(this.txtMensagemPosicaoX, this.txtMensagemPosicaoY, 'ACERTOU!', {fontSize: this.txtMensagemTamanhoFonte, fontStyle: this.txtMensagemEstiloFonte, fill:'red'});
+                        setTimeout(() => { 
+                            if(game.scene.isActive("PlayGame")){
+                                this.venceuUltimoNivel();
+                                this.scene.start('PhaseComplete');  
+                            }
+                        }, 3000);
 
-                setTimeout(() => { this.scene.start('PhaseComplete'); }, 3000);
                     }else{
                         console.log("MISTURE AS CORES ANTES");
                     }
