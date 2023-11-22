@@ -6,6 +6,8 @@ export class Teacher extends Phaser.Scene{
         this.btnRanking;
         this.btnCreditos;
         this.btnVoltar;
+        this.senha;
+        this.professorLogado=false;
 
     }
     preload(){
@@ -13,6 +15,14 @@ export class Teacher extends Phaser.Scene{
     }
     create(){
         
+        if(!this.professorLogado){
+            this.senha = prompt('Digite a senha do professor');
+            if(this.senha == "professor123"){
+                this.professorLogado = true;
+            }else{
+                this.scene.start('StartGame');
+            }
+        }
         this.add.text(180, 150,"ÁREA DO PROFESSOR",  {fontSize: '50px', fontStyle: 'bold',fill:'white'});
      //   this.caixaNome = this.add.rectangle(200, 220, 400, 80, 0xFFFFFF).setOrigin(0,0);
         

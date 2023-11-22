@@ -15,17 +15,21 @@ Jogo educativo com o objetivo de ensinar as cores primária e secundárias para 
 </h2>
 
 
-## How To Use
+## Como usar
 
+Senha da area do professor "professor123"
 
 ```bash
 
-# Install dependencies
+# Instalar dependencias
 $ npm install
 
-# Build the production ready code to the /dist folder
+# Roda a versão de desenvolvimento 
+$ npm run startdev 
+
+# Gerar a build na pasta /dist
 $ npm run build
 
-# Play production ready game in the browser
+# Roda a build
 $ npm run serve
 ```
